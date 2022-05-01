@@ -3,15 +3,6 @@ import { memo } from "react";
 function DemoContent() {
   return (
     <div>
-      <img
-        src="assets/images/clip-art/wrangler1.png"
-        alt="beach"
-        style={{
-          maxWidth: "640px",
-          width: "100%",
-        }}
-        className="rounded-6"
-      />
       <h1 className="py-16 font-semibold">Early Sunrise</h1>
       <h4 className="pb-12 font-medium">Demo Content</h4>
       <p>

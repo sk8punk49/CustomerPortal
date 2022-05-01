@@ -16,7 +16,7 @@ function SimpleFullWidthSample() {
       }}
       header={
         <div className="p-24">
-          <h4>Home</h4>
+          <h4>Example</h4>
         </div>
       }
       contentToolbar={

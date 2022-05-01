@@ -1,6 +1,7 @@
 const locale = {
-  APPLICATIONS: 'Applications',
-  EXAMPLE: 'Example',
+  APPLICATIONS: "Applications",
+  ECOMMERCE: "E-Commerce",
+  EXAMPLE: "Example",
 };
 
 export default locale;
