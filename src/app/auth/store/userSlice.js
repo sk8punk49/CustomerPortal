@@ -197,9 +197,9 @@ export const updateUserData = (user) => async (dispatch, getState) => {
 };
 
 const initialState = {
-  role: ["Installer"], // guest
+  role: [], // guest
   data: {
-    displayName: "Budget Brake and Muffler",
+    displayName: "John Doe",
     photoURL: "assets/images/avatars/Velazquez.jpg",
     email: "johndoe@withinpixels.com",
     shortcuts: ["calendar", "mail", "contacts", "todo"],

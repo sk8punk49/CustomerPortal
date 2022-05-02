@@ -20,6 +20,14 @@ const navigationConfig = [
         url: "/example",
       },
       {
+        id: "home-component",
+        title: "Home",
+        translate: "HOME",
+        type: "item",
+        icon: "home",
+        url: "/home",
+      },
+      {
         id: "e-commerce",
         title: "E-Commerce",
         translate: "ECOMMERCE",
