@@ -1,4 +1,5 @@
 import "./db/e-commerce-db";
+import './db/project-dashboard-db';
 
 import history from "@history";
 import mock from "./mock";
