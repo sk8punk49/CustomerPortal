@@ -12,7 +12,6 @@ import ProjectDashboardAppSidebar from './ProjectDashboardAppSidebar';
 import reducer from './store';
 import { getWidgets, selectWidgets } from './store/widgetsSlice';
 import BudgetSummaryTab from './tabs/BudgetSummaryTab';
-import HomeTab from './tabs/HomeTab';
 import TeamMembersTab from './tabs/TeamMembersTab';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +46,7 @@ function ProjectDashboardApp(props) {
     <FusePageSimple
       classes={{
         header:
-          'min-h-160 h-160 lg:ltr:rounded-br-20 lg:rtl:rounded-bl-20 lg:ltr:mr-12 lg:rtl:ml-12',
+          'min-h-160 h-160  lg:rtl:ml-12',
         toolbar: 'min-h-56 h-56 items-end',
         rightSidebar: 'w-288 border-0 py-12',
         content: classes.content,
@@ -67,15 +66,16 @@ function ProjectDashboardApp(props) {
             children: <Divider className="w-full h-full rounded-full opacity-50" />,
           }}
         >
+
           <Tab
             className="text-14 font-semibold min-h-40 min-w-64 mx-4"
             disableRipple
-            label="Budget Summary"
+            label="Home"
           />
           <Tab
             className="text-14 font-semibold min-h-40 min-w-64 mx-4"
             disableRipple
-            label="Team Members"
+            label="Transactions"
           />
         </Tabs>
       }
@@ -85,7 +85,7 @@ function ProjectDashboardApp(props) {
           {tabValue === 1 && <TeamMembersTab />}
         </div>
       }
-      rightSidebarContent={<ProjectDashboardAppSidebar />}
+
       ref={pageLayout}
     />
   );

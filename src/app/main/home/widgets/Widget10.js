@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import { memo } from 'react';
+import { Link } from 'react-router-dom';
 
 function Widget10(props) {
   return (
@@ -33,17 +34,10 @@ function Widget10(props) {
               <TableRow key={row.id} className="h-64">
                 {row.cells.map((cell) => {
                   switch (cell.id) {
-                    case 'budget_type': {
+                    case 'invoice_number': {
                       return (
                         <TableCell key={cell.id} component="th" scope="row">
-                          <Typography
-                            className={clsx(
-                              cell.classes,
-                              'inline text-11 font-500 px-8 py-4 rounded-4'
-                            )}
-                          >
-                            {cell.value}
-                          </Typography>
+                          <Link style={{color:"#008fc5"}} to="/apps/e-commerce/orders/1">{cell.value}</Link>
                         </TableCell>
                       );
                     }

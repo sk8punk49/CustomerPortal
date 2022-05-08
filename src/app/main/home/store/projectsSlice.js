@@ -15,10 +15,10 @@ export const {
   selectAll: selectProjects,
   selectEntities: selectProjectsEntities,
   selectById: selectProjectById,
-} = projectsAdapter.getSelectors((state) => state.projectDashboardApp.projects);
+} = projectsAdapter.getSelectors((state) => state.Home.projects);
 
 const projectsSlice = createSlice({
-  name: 'projectDashboardApp/projects',
+  name: 'home/projects',
   initialState: projectsAdapter.getInitialState(),
   reducers: {},
   extraReducers: {

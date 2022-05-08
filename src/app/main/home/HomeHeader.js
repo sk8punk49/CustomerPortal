@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ProjectDashboardAppHeader(props) {
+function HomeHeader(props) {
   const { pageLayout } = props;
   const classes = useStyles(props);
 
@@ -75,78 +75,24 @@ function ProjectDashboardAppHeader(props) {
     <div className="flex flex-col justify-between flex-1 min-w-0 px-24 pt-24">
       <div className="flex justify-between items-center">
         <div className="flex items-center min-w-0">
-          {user.data.photoURL ? (
-            <Avatar
-              className="w-52 h-52 sm:w-64 sm:h-64"
-              alt="user photo"
-              src={user.data.photoURL}
-            />
-          ) : (
-            <Avatar className="w-52 h-52 sm:w-64 sm:h-64">{user.data.displayName[0]}</Avatar>
-          )}
+
           <div className="mx-12 min-w-0">
             <Typography className="text-18 sm:text-24 md:text-32 font-bold leading-none mb-8 tracking-tight">
-              Welcome back, {user.data.displayName}!
+              {user.data.companyName}
             </Typography>
 
             <div className="flex items-center opacity-60 truncate">
-              <Icon className="text-14 sm:text-24">notifications</Icon>
+              <Icon className="text-14 sm:text-24">account_circle</Icon>
               <Typography className="text-12 sm:text-14 font-medium mx-4 truncate">
-                You have 2 new messages and 15 new tasks
+                Account #{user.data.accountNumber}
               </Typography>
             </div>
           </div>
         </div>
-        <Hidden lgUp>
-          <IconButton
-            onClick={(ev) => pageLayout.current.toggleRightSidebar()}
-            aria-label="open left sidebar"
-            color="inherit"
-          >
-            <Icon>menu</Icon>
-          </IconButton>
-        </Hidden>
       </div>
-      <div className="flex items-end">
-        <div className="flex items-center">
-          <div
-            className={clsx(
-              classes.selectedProject,
-              'flex items-center h-40 px-16 text-13 sm:text-16'
-            )}
-          >
-            {_.find(projects, ['id', selectedProject.id]).name}
-          </div>
-          <IconButton
-            className={clsx(classes.projectMenuButton, 'h-40 w-40 p-0')}
-            aria-owns={selectedProject.menuEl ? 'project-menu' : undefined}
-            aria-haspopup="true"
-            onClick={handleOpenProjectMenu}
-          >
-            <Icon>more_horiz</Icon>
-          </IconButton>
-          <Menu
-            id="project-menu"
-            anchorEl={selectedProject.menuEl}
-            open={Boolean(selectedProject.menuEl)}
-            onClose={handleCloseProjectMenu}
-          >
-            {projects &&
-              projects.map((project) => (
-                <MenuItem
-                  key={project.id}
-                  onClick={(ev) => {
-                    handleChangeProject(project.id);
-                  }}
-                >
-                  {project.name}
-                </MenuItem>
-              ))}
-          </Menu>
-        </div>
-      </div>
+
     </div>
   );
 }
 
-export default ProjectDashboardAppHeader;
+export default HomeHeader;

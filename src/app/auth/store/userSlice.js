@@ -200,7 +200,10 @@ const initialState = {
   role: [], // guest
   data: {
     displayName: "John Doe",
+    companyName:  "Budget Brake and Muffler",
+    accountNumber: "988", 
     photoURL: "assets/images/avatars/Velazquez.jpg",
+    companyLogoURL: "assets/images/customerLogos/budgetBrake.png",
     email: "johndoe@withinpixels.com",
     shortcuts: ["calendar", "mail", "contacts", "todo"],
   },

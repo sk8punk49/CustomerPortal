@@ -97,54 +97,8 @@ function ProjectDashboardAppHeader(props) {
             </div>
           </div>
         </div>
-        <Hidden lgUp>
-          <IconButton
-            onClick={(ev) => pageLayout.current.toggleRightSidebar()}
-            aria-label="open left sidebar"
-            color="inherit"
-          >
-            <Icon>menu</Icon>
-          </IconButton>
-        </Hidden>
       </div>
-      <div className="flex items-end">
-        <div className="flex items-center">
-          <div
-            className={clsx(
-              classes.selectedProject,
-              'flex items-center h-40 px-16 text-13 sm:text-16'
-            )}
-          >
-            {_.find(projects, ['id', selectedProject.id]).name}
-          </div>
-          <IconButton
-            className={clsx(classes.projectMenuButton, 'h-40 w-40 p-0')}
-            aria-owns={selectedProject.menuEl ? 'project-menu' : undefined}
-            aria-haspopup="true"
-            onClick={handleOpenProjectMenu}
-          >
-            <Icon>more_horiz</Icon>
-          </IconButton>
-          <Menu
-            id="project-menu"
-            anchorEl={selectedProject.menuEl}
-            open={Boolean(selectedProject.menuEl)}
-            onClose={handleCloseProjectMenu}
-          >
-            {projects &&
-              projects.map((project) => (
-                <MenuItem
-                  key={project.id}
-                  onClick={(ev) => {
-                    handleChangeProject(project.id);
-                  }}
-                >
-                  {project.name}
-                </MenuItem>
-              ))}
-          </Menu>
-        </div>
-      </div>
+
     </div>
   );
 }

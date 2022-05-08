@@ -12,10 +12,10 @@ const navigationConfig = [
     icon: "apps",
     children: [
       {
-        id: 'project-dashboard',
+        id: 'home',
         title: 'Home',
         type: 'item',
-        url: '/apps/dashboards/project',
+        url: '/home',
       },
       {
         id: "e-commerce",
@@ -27,23 +27,9 @@ const navigationConfig = [
         children: [
           {
             id: "e-commerce-products",
-            title: "Products",
+            title: "Tradeshow",
             type: "item",
             url: "/apps/e-commerce/products",
-            exact: true,
-          },
-          {
-            id: "e-commerce-product-detail",
-            title: "Product Detail",
-            type: "item",
-            url: "/apps/e-commerce/products/1/a-walk-amongst-friends-canvas-print",
-            exact: true,
-          },
-          {
-            id: "e-commerce-new-product",
-            title: "New Product",
-            type: "item",
-            url: "/apps/e-commerce/products/new",
             exact: true,
           },
           {

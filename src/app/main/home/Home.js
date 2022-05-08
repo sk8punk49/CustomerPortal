@@ -1,76 +1,81 @@
-import FusePageSimple from '@fuse/core/FusePageSimple';
-import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
+import FusePageCarded from '@fuse/core/FusePageCarded';
+import Divider from '@material-ui/core/Divider';
 import withReducer from 'app/store/withReducer';
-import Typography from '@material-ui/core/Typography';
-import clsx from 'clsx';
 import _ from '@lodash';
+import HomeHeader from './HomeHeader';
+import reducer from './store';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ProjectDashboardAppHeader from './ProjectDashboardAppHeader';
+import HomeDashboardTab from './tabs/HomeDashboardTab';
 
-import reducer from './store';
+import { getWidgets, selectWidgets } from './store/widgetsSlice';
+import AccountInformationTab from './tabs/AccountInformationTab';
 
 
+function Home(props) {
+  const dispatch = useDispatch();
+  const widgets = useSelector(selectWidgets);
+  const [tabValue, setTabValue] = useState(0);
 
-const useStyles = makeStyles((theme) => ({
-  content: {
-    '& canvas': {
-      maxHeight: '100%',
-    },
-  },
-}));
 
-function Home() {
-  const classes = useStyles();
-  const pageLayout = useRef(null);
-  return (
-    <FusePageSimple
-      classes={{
-        header:
-          'min-h-160 h-160 lg:ltr:rounded-br-20 lg:rtl:rounded-bl-20 lg:ltr:mr-12 lg:rtl:ml-12',
-        toolbar: 'min-h-56 h-56 items-end',
-        rightSidebar: 'w-288 border-0 py-12',
-        content: classes.content,
-      }}
-      header={
-        <div className="flex flex-col justify-between flex-1 min-w-0 px-24 pt-24">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center min-w-0">
+  useEffect(() => {
+    dispatch(getWidgets());
+  }, [dispatch]);
 
-            <Avatar
-              className="w-52 h-52 sm:w-64 sm:h-64"
-              alt="user photo"
-              src=""
+  function handleChangeTab(event, value) {
+    setTabValue(value);
+  }
+
+  if (_.isEmpty(widgets)) {
+    return null;
+  }
+
+    return (
+      <FusePageCarded
+        classes={{
+          content: 'flex',
+          contentCard: 'overflow-hidden',
+          header: 'min-h-72 h-72 sm:h-136 sm:min-h-136',
+        }}
+        header={<HomeHeader />}
+        contentToolbar={
+          <Tabs
+            value={tabValue}
+            onChange={handleChangeTab}
+            indicatorColor="secondary"
+            textColor="inherit"
+            variant="scrollable"
+            scrollButtons="off"
+            className="w-full px-24 -mx-4 min-h-40"
+            classes={{ indicator: 'flex justify-center bg-transparent w-full h-full' }}
+            TabIndicatorProps={{
+              children: <Divider className="w-full h-full rounded-full opacity-50" />,
+            }}
+          >
+  
+            <Tab
+              className="text-14 font-semibold min-h-40 min-w-64 mx-4"
+              disableRipple
+              label="Summary"
             />
-<div className="mx-12 min-w-0">
-            <Typography className="text-18 sm:text-24 md:text-32 font-bold leading-none mb-8 tracking-tight">
-              Welcome back, John Doe!
-            </Typography>
-
-            <div className="flex items-center opacity-60 truncate">
-              <Icon className="text-14 sm:text-24">notifications</Icon>
-              <Typography className="text-12 sm:text-14 font-medium mx-4 truncate">
-                You have 2 new messages and 15 new tasks
-              </Typography>
-            </div>
-          </div>
-          </div>
+            <Tab
+              className="text-14 font-semibold min-h-40 min-w-64 mx-4"
+              disableRipple
+              label="Account"
+            />
+          </Tabs>
+        }
+        content={ 
+        <div className="p-12 lg:ltr:pr-0 lg:rtl:pl-0">
+          {tabValue === 1 && <HomeDashboardTab />}
+          {tabValue === 0 && <AccountInformationTab />}
         </div>
-      
-      </div>
-      }
-      content={
-        <div>
-          <h1>Home Works</h1>
-        </div>
-      }
-
-      ref={pageLayout}
-    />
-  );
+        }
+        innerScroll
+      />
+    );
 }
 
 export default withReducer('Home', reducer)(Home);

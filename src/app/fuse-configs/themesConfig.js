@@ -1,4 +1,4 @@
-import { fuseDark, skyBlue } from '@fuse/colors';
+import { fuseDark, skyBlue, lordcoBlue } from '@fuse/colors';
 import { lightBlue, red } from '@material-ui/core/colors';
 
 const lightText = {
@@ -14,6 +14,34 @@ const darkText = {
 };
 
 const themesConfig = {
+  lordcoDefault: {
+    palette: {
+      type: 'light',
+      text: lightText,
+      common: {
+        black: 'rgb(17, 24, 39)',
+        white: 'rgb(255, 255, 255)',
+      },
+      primary: {
+        light: '#5bbff8',
+        main: '#008fc5',
+        dark: '#006294',
+      },
+      secondary: {
+        light: fuseDark[100],
+        main: fuseDark[400],
+        dark: fuseDark[800],
+      },
+      background: {
+        paper: '#FFFFFF',
+        default: '#f6f7f9',
+      },
+      error: red,
+    },
+    status: {
+      danger: 'orange',
+    },
+  },
   default: {
     palette: {
       type: 'light',

@@ -1,6 +1,6 @@
 import mock from '../mock';
 
-const projectDashboardAppDB = {
+const homeDB = {
 	widgets: [
 		{
 			id: 'widget1',
@@ -839,7 +839,7 @@ const projectDashboardAppDB = {
 			},
 			currentRange: 'TW',
 			weeklySpent: {
-				title: 'WEEKLY SPENT',
+				title: 'YESTERDAY SPENT',
 				count: {
 					'2W': '2,682.85',
 					LW: '1,445.34',
@@ -849,7 +849,7 @@ const projectDashboardAppDB = {
 					'2W': {
 						series: [
 							{
-								name: 'Created',
+								name: 'Invoices',
 								data: [2, 6, 5, 4, 5, 3, 6]
 							}
 						]
@@ -857,7 +857,7 @@ const projectDashboardAppDB = {
 					LW: {
 						series: [
 							{
-								name: 'Created',
+								name: 'Invoices',
 								data: [4, 6, 2, 2, 1, 3, 4]
 							}
 						]
@@ -865,7 +865,7 @@ const projectDashboardAppDB = {
 					TW: {
 						series: [
 							{
-								name: 'Created',
+								name: 'Invoices',
 								data: [2, 6, 5, 4, 5, 3, 6]
 							}
 						]
@@ -908,7 +908,7 @@ const projectDashboardAppDB = {
 				}
 			},
 			totalSpent: {
-				title: 'TOTAL SPENT',
+				title: 'WEEKLY SPENT',
 				count: {
 					'2W': '29,682.85',
 					LW: '31,128.19',
@@ -918,7 +918,7 @@ const projectDashboardAppDB = {
 					'2W': {
 						series: [
 							{
-								name: 'Created',
+								name: 'Invoices',
 								data: [3, 2, 2, 4, 7, 7, 4]
 							}
 						]
@@ -926,7 +926,7 @@ const projectDashboardAppDB = {
 					LW: {
 						series: [
 							{
-								name: 'Created',
+								name: 'Invoices',
 								data: [5, 7, 8, 8, 6, 4, 1]
 							}
 						]
@@ -934,7 +934,7 @@ const projectDashboardAppDB = {
 					TW: {
 						series: [
 							{
-								name: 'Created',
+								name: 'Invoices',
 								data: [6, 4, 7, 5, 5, 4, 7]
 							}
 						]
@@ -977,17 +977,17 @@ const projectDashboardAppDB = {
 				}
 			},
 			remaining: {
-				title: 'REMAINING',
+				title: 'TOTAL RETURNS',
 				count: {
-					'2W': '94.317,15',
-					LW: '92.871,81',
-					TW: '89.241,66'
+					'2W': '4.317,15',
+					LW: '2.871,81',
+					TW: '9.241,66'
 				},
 				chart: {
 					'2W': {
 						series: [
 							{
-								name: 'Created',
+								name: 'Invoices',
 								data: [1, 4, 5, 7, 8, 2, 4],
 								fill: true,
 								backgroundColor: '#42BFF7',
@@ -1000,7 +1000,7 @@ const projectDashboardAppDB = {
 					LW: {
 						series: [
 							{
-								name: 'Created',
+								name: 'Invoices',
 								data: [3, 2, 1, 4, 8, 8, 4],
 								fill: true,
 								backgroundColor: '#42BFF7',
@@ -1013,7 +1013,7 @@ const projectDashboardAppDB = {
 					TW: {
 						series: [
 							{
-								name: 'Created',
+								name: 'Invoices',
 								data: [2, 4, 8, 6, 2, 5, 1],
 								fill: true,
 								backgroundColor: '#42BFF7',
@@ -1071,236 +1071,248 @@ const projectDashboardAppDB = {
 			table: {
 				columns: [
 					{
-						id: 'budget_type',
-						title: 'Category'
+						id: 'invoice_date',
+						title: 'Invoice Total'
 					},
 					{
-						id: 'total_budget',
-						title: 'Total Budget'
+						id: 'invoice_number',
+						title: 'Invoice#'
 					},
 					{
-						id: 'spent_usd',
-						title: 'Spent ($)'
+						id: 'invoice_time',
+						title: 'Time'
 					},
 					{
-						id: 'spent_perc',
-						title: 'Spent (%)'
+						id: 'po_number',
+						title: 'Customer PO'
 					},
 					{
-						id: 'remaining_usd',
-						title: 'Remaining ($)'
+						id: 'branch',
+						title: 'Branch'
 					},
 					{
-						id: 'remaining_perc',
-						title: 'Remaining (%)'
+						id: 'total_amount',
+						title: 'Invoice Total'
 					}
+					
+					
 				],
 				rows: [
 					{
 						id: 1,
 						cells: [
 							{
-								id: 'budget_type',
-								value: 'Automotive Parts',
-								classes: 'bg-blue text-white',
-								icon: ''
-							},
-							{
-								id: 'total_budget',
-								value: '$14,880.00',
+								id: 'invoice_date',
+								value: '2022-04-30',
 								classes: 'font-semibold',
 								icon: ''
 							},
 							{
-								id: 'spent_usd',
-								value: '$14,000.00',
+								id: 'invoice_number',
+								value: '2NV029093',
 								classes: '',
 								icon: ''
 							},
 							{
-								id: 'spent_perc',
-								value: '%94.08',
-								classes: 'text-green',
-								icon: 'trending_up'
-							},
-							{
-								id: 'remaining_usd',
-								value: '$880.00',
+								id: 'invoice_time',
+								value: '11:33:22',
 								classes: '',
 								icon: ''
 							},
 							{
-								id: 'remaining_perc',
-								value: '%5.92',
+								id: 'po_number',
+								value: '1',
+								classes: '',
+								icon: ''
+							},
+						
+							{
+								id: 'branch',
+								value: '#2 - MISSION',
+								classes: '',
+								icon: ''
+							},
+							{
+								id: 'total_amount',
+								value: '$94.08',
 								classes: '',
 								icon: ''
 							}
+							
 						]
 					},
 					{
 						id: 2,
 						cells: [
 							{
-								id: 'budget_type',
-								value: 'Design',
-								classes: 'bg-green text-white',
-								icon: ''
-							},
-							{
-								id: 'total_budget',
-								value: '$21,080.00',
+								id: 'invoice_date',
+								value: '2022-04-26',
 								classes: 'font-semibold',
 								icon: ''
 							},
 							{
-								id: 'spent_usd',
-								value: '$17,240.34',
+								id: 'invoice_number',
+								value: '15NV005944',
 								classes: '',
 								icon: ''
 							},
 							{
-								id: 'spent_perc',
-								value: '%81.78',
-								classes: 'text-green',
-								icon: 'trending_up'
-							},
-							{
-								id: 'remaining_usd',
-								value: '$3,839.66',
+								id: 'invoice_time',
+								value: '17:59:22',
 								classes: '',
 								icon: ''
 							},
 							{
-								id: 'remaining_perc',
-								value: '%18.22',
+								id: 'po_number',
+								value: 'CASH',
+								classes: '',
+								icon: ''
+							},
+						
+							{
+								id: 'branch',
+								value: '#15 - PIT MEADOWS',
+								classes: '',
+								icon: ''
+							},
+							{
+								id: 'total_amount',
+								value: '$7.06',
 								classes: '',
 								icon: ''
 							}
+							
 						]
 					},
 					{
 						id: 3,
 						cells: [
 							{
-								id: 'budget_type',
-								value: 'Coding',
-								classes: 'bg-red text-white',
-								icon: ''
-							},
-							{
-								id: 'total_budget',
-								value: '$34,720.00',
+								id: 'invoice_date',
+								value: '2022-04-23',
 								classes: 'font-semibold',
 								icon: ''
 							},
 							{
-								id: 'spent_usd',
-								value: '$3,518.00',
+								id: 'invoice_number',
+								value: '2NV027837',
 								classes: '',
 								icon: ''
 							},
 							{
-								id: 'spent_perc',
-								value: '%10.13',
-								classes: 'text-red',
-								icon: 'trending_down'
-							},
-							{
-								id: 'remaining_usd',
-								value: '$31,202.00',
+								id: 'invoice_time',
+								value: '12:16:02',
 								classes: '',
 								icon: ''
 							},
 							{
-								id: 'remaining_perc',
-								value: '%89.87',
+								id: 'po_number',
+								value: '0',
+								classes: '',
+								icon: ''
+							},
+						
+							{
+								id: 'branch',
+								value: '#2 - MISSION',
+								classes: '',
+								icon: ''
+							},
+							{
+								id: 'total_amount',
+								value: '$77.20',
 								classes: '',
 								icon: ''
 							}
+							
 						]
 					},
 					{
 						id: 4,
 						cells: [
 							{
-								id: 'budget_type',
-								value: 'Marketing',
-								classes: 'bg-pink text-white',
-								icon: ''
-							},
-							{
-								id: 'total_budget',
-								value: '$34,720.00',
+								id: 'invoice_date',
+								value: '2022-04-10',
 								classes: 'font-semibold',
 								icon: ''
 							},
 							{
-								id: 'spent_usd',
-								value: '$0.00',
+								id: 'invoice_number',
+								value: '2CR002699',
 								classes: '',
 								icon: ''
 							},
 							{
-								id: 'spent_perc',
-								value: '%0.00',
-								classes: 'text-blue',
-								icon: 'trending_flat'
-							},
-							{
-								id: 'remaining_usd',
-								value: '$34,720.00',
+								id: 'invoice_time',
+								value: '09:14:44',
 								classes: '',
 								icon: ''
 							},
 							{
-								id: 'remaining_perc',
-								value: '%100.00',
+								id: 'po_number',
+								value: 'FIREBIRD',
+								classes: '',
+								icon: ''
+							},
+						
+							{
+								id: 'branch',
+								value: '#2 - MISSION',
+								classes: '',
+								icon: ''
+							},
+							{
+								id: 'total_amount',
+								value: '-$53.88',
 								classes: '',
 								icon: ''
 							}
+							
 						]
 					},
 					{
 						id: 5,
 						cells: [
 							{
-								id: 'budget_type',
-								value: 'Extra',
-								classes: 'bg-orange text-white',
-								icon: ''
-							},
-							{
-								id: 'total_budget',
-								value: '$18,600.00',
+								id: 'invoice_date',
+								value: '2022-04-09',
 								classes: 'font-semibold',
 								icon: ''
 							},
 							{
-								id: 'spent_usd',
-								value: '$0.00',
+								id: 'invoice_number',
+								value: '2NV025543',
 								classes: '',
 								icon: ''
 							},
 							{
-								id: 'spent_perc',
-								value: '%0.00',
-								classes: 'text-blue',
-								icon: 'trending_flat'
-							},
-							{
-								id: 'remaining_usd',
-								value: '$34,720.00',
+								id: 'invoice_time',
+								value: '15:55:15',
 								classes: '',
 								icon: ''
 							},
 							{
-								id: 'remaining_perc',
-								value: '%100.00',
+								id: 'po_number',
+								value: 'FIREBIRD',
+								classes: '',
+								icon: ''
+							},
+						
+							{
+								id: 'branch',
+								value: '#2 - MISSION',
+								classes: '',
+								icon: ''
+							},
+							{
+								id: 'total_amount',
+								value: '$53.88',
 								classes: '',
 								icon: ''
 							}
+							
 						]
-					}
+					},
 				]
 			}
 		},
@@ -2004,9 +2016,9 @@ const projectDashboardAppDB = {
 };
 
 mock.onGet('/api/project-dashboard-app/widgets').reply(config => {
-	return [200, projectDashboardAppDB.widgets];
+	return [200, homeDB.widgets];
 });
 
 mock.onGet('/api/project-dashboard-app/projects').reply(config => {
-	return [200, projectDashboardAppDB.projects];
+	return [200, homeDB.projects];
 });
