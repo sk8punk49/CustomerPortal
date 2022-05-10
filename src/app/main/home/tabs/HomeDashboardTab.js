@@ -1,9 +1,9 @@
-import { motion } from 'framer-motion';
-import { useSelector } from 'react-redux';
-import { selectWidgets } from '../store/widgetsSlice';
-import Widget10 from '../widgets/Widget10';
-import Widget8 from '../widgets/Widget8';
-import Widget9 from '../widgets/Widget9';
+import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { selectWidgets } from "../store/widgetsSlice";
+import Widget10 from "../widgets/Widget10";
+import Widget8 from "../widgets/Widget8";
+import Widget9 from "../widgets/Widget9";
 
 function HomeDashboardTab() {
   const widgets = useSelector(selectWidgets);
@@ -22,8 +22,13 @@ function HomeDashboardTab() {
   };
 
   return (
-    <motion.div className="flex flex-wrap" variants={container} initial="hidden" animate="show">
-      <motion.div variants={item} className="widget sm:w-1/2">
+    <motion.div
+      className="flex flex-wrap"
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
+      <motion.div variants={item} className="widget sm:w-1/2 p-12">
         <Widget8 widget={widgets.widget8} />
       </motion.div>
       <motion.div variants={item} className="widget flex w-full sm:w-1/2 p-12">
