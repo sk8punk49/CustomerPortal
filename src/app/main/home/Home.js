@@ -70,8 +70,8 @@ function Home(props) {
       }
       content={
         <div className="w-full">
-          {tabValue === 1 && <HomeDashboardTab />}
-          {tabValue === 0 && <AccountInformationTab />}
+          {tabValue === 0 && <HomeDashboardTab />}
+          {tabValue === 1 && <AccountInformationTab />}
         </div>
       }
       innerScroll

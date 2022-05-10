@@ -200,8 +200,16 @@ const initialState = {
   role: [], // guest
   data: {
     displayName: "John Doe",
-    companyName:  "Budget Brake and Muffler",
-    accountNumber: "988", 
+    companyName: "Budget Brake and Muffler",
+    accountNumber: "988",
+    address1: "	1st Professional Auto Lt",
+    address2: "	2561 Barnet Hwy",
+    city: "Coquitlam",
+    province: "BC",
+    postalCode: "V3H1W4",
+    phoneNumber: "(604) 464-2331",
+    primaryBranch: "#6 - Coquitlam",
+    salesPerson: "Darcy Harvey",
     photoURL: "assets/images/avatars/Velazquez.jpg",
     companyLogoURL: "assets/images/customerLogos/budgetBrake.png",
     email: "johndoe@withinpixels.com",
