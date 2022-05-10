@@ -12,10 +12,10 @@ const navigationConfig = [
     icon: "apps",
     children: [
       {
-        id: 'home',
-        title: 'Home',
-        type: 'item',
-        url: '/home',
+        id: "home",
+        title: "Home",
+        type: "item",
+        url: "/home",
       },
       {
         id: "e-commerce",
@@ -30,20 +30,6 @@ const navigationConfig = [
             title: "Tradeshow",
             type: "item",
             url: "/apps/e-commerce/products",
-            exact: true,
-          },
-          {
-            id: "e-commerce-orders",
-            title: "Orders",
-            type: "item",
-            url: "/apps/e-commerce/orders",
-            exact: true,
-          },
-          {
-            id: "e-commerce-order-detail",
-            title: "Order Detail",
-            type: "item",
-            url: "/apps/e-commerce/orders/1",
             exact: true,
           },
         ],

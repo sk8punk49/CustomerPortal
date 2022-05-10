@@ -16,34 +16,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Icon } from "@material-ui/core";
 
-import {
-  getCustomerDiscounts,
-  selectCustomerDiscounts,
-} from "../store/customerDiscountSlice";
-
 function createData(key, val) {
   return { key, val };
 }
 
-function createPriceLevelLabel(param) {
-  switch (param) {
-    case 4:
-      return "Cost";
-    default:
-      return "True Jobber";
-  }
-}
-
 function AccountInformationTab(props) {
-  const dispatch = useDispatch();
   const user = useSelector(({ auth }) => auth.user);
-  const customerDiscounts = useSelector(selectCustomerDiscounts);
-
-  console.log(customerDiscounts);
-
-  useEffect(() => {
-    dispatch(getCustomerDiscounts());
-  }, [dispatch]);
 
   const container = {
     show: {
@@ -87,17 +65,13 @@ function AccountInformationTab(props) {
     ),
   ];
 
-  const discountInformation = [
-    createData("Invoice Discount", "10%"),
-    createData("Discount Level", "7 - True Jobber"),
-  ];
-
   const balanceInformation = [
     createData("Credit Limit", "$50,000"),
     createData("Current Balance", "$0.00"),
-    createData("30 Days Balance", "$0.00"),
-    createData("60 Days Balance", "$0.00"),
-    createData("90 Days Balance", "$0.00"),
+    createData("Balance 30 Days", "$0.00"),
+    createData("Balance 60 Days", "$0.00"),
+    createData("Balance 90 Days", "$0.00"),
+    createData("Balance 120 Days", "$0.00"),
   ];
 
   const item = {
@@ -164,63 +138,6 @@ function AccountInformationTab(props) {
       </CardActions>
     </React.Fragment>
   );
-  const discountInformationTable = (
-    <CardContent>
-      <div className="flex items-center justify-between p-20 h-64">
-        <Typography className="text-16 font-medium">Line Discounts</Typography>
-      </div>
-      <TableContainer>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <Typography variant="subtitle1" component="div">
-                  Line
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle1" component="div">
-                  Description
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle1" component="div">
-                  Discount
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography align="right" variant="subtitle1" component="div">
-                  Rate
-                </Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {customerDiscounts.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  <Typography className="font-medium">{row.id}</Typography>
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  <Typography className="font-medium">
-                    {row.description}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography className="flex items-center">
-                    {createPriceLevelLabel(row.discountLevel)}
-                  </Typography>
-                </TableCell>
-                <TableCell align="right">
-                  <Typography>{row.discount}%</Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </CardContent>
-  );
 
   const accountBalanceTable = (
     <CardContent>
@@ -271,13 +188,6 @@ function AccountInformationTab(props) {
       <motion.div variants={item} className="flex w-full sm:w-1/3 p-12">
         <Paper className="w-full rounded-20 shadow">
           <div className="w-full">{programIncentiveTable}</div>
-        </Paper>
-      </motion.div>
-      <motion.div variants={item} className="flex sm:w-2/3 w-full p-12">
-        <Paper className="w-full rounded-20 shadow">
-          <div className="overflow-auto h-400 w-full">
-            {discountInformationTable}
-          </div>
         </Paper>
       </motion.div>
     </motion.div>
