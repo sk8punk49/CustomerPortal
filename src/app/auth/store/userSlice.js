@@ -208,6 +208,7 @@ const initialState = {
     province: "BC",
     postalCode: "V3H1W4",
     phoneNumber: "(604) 464-2331",
+    primaryBranch: "#6 - Coquitlam",
     salesPerson: "Darcy Harvey",
     photoURL: "assets/images/avatars/Velazquez.jpg",
     companyLogoURL: "assets/images/customerLogos/budgetBrake.png",
