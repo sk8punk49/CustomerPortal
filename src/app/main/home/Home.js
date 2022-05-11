@@ -32,50 +32,50 @@ function Home(props) {
     return null;
   }
 
-    return (
-      <FusePageCarded
-        classes={{
-          content: 'flex',
-          contentCard: 'overflow-hidden',
-          header: 'min-h-72 h-72 sm:h-136 sm:min-h-136',
-        }}
-        header={<HomeHeader />}
-        contentToolbar={
-          <Tabs
-            value={tabValue}
-            onChange={handleChangeTab}
-            indicatorColor="secondary"
-            textColor="inherit"
-            variant="scrollable"
-            scrollButtons="off"
-            className="w-full px-24 -mx-4 min-h-40"
-            classes={{ indicator: 'flex justify-center bg-transparent w-full h-full' }}
-            TabIndicatorProps={{
-              children: <Divider className="w-full h-full rounded-full opacity-50" />,
-            }}
-          >
-  
-            <Tab
-              className="text-14 font-semibold min-h-40 min-w-64 mx-4"
-              disableRipple
-              label="Summary"
-            />
-            <Tab
-              className="text-14 font-semibold min-h-40 min-w-64 mx-4"
-              disableRipple
-              label="Account"
-            />
-          </Tabs>
-        }
-        content={ 
-        <div className="p-12 lg:ltr:pr-0 lg:rtl:pl-0">
-          {tabValue === 1 && <HomeDashboardTab />}
-          {tabValue === 0 && <AccountInformationTab />}
+  return (
+    <FusePageCarded
+      classes={{
+        content: 'flex',
+        contentCard: 'overflow-hidden',
+        header: 'min-h-72 h-72 sm:h-136 sm:min-h-136',
+      }}
+      header={<HomeHeader />}
+      contentToolbar={
+        <Tabs
+          value={tabValue}
+          onChange={handleChangeTab}
+          indicatorColor="secondary"
+          textColor="inherit"
+          variant="scrollable"
+          scrollButtons="off"
+          className="w-full px-24 -mx-4 min-h-40"
+          classes={{ indicator: 'flex justify-center bg-transparent w-full h-full' }}
+          TabIndicatorProps={{
+            children: <Divider className="w-full h-full rounded-full opacity-50" />,
+          }}
+        >
+
+          <Tab
+            className="text-14 font-semibold min-h-40 min-w-64 mx-4"
+            disableRipple
+            label="Summary"
+          />
+          <Tab
+            className="text-14 font-semibold min-h-40 min-w-64 mx-4"
+            disableRipple
+            label="Account"
+          />
+        </Tabs>
+      }
+      content={
+        <div className="w-full">
+          {tabValue === 0 && <HomeDashboardTab />}
+          {tabValue === 1 && <AccountInformationTab />}
         </div>
-        }
-        innerScroll
-      />
-    );
+      }
+      innerScroll
+    />
+  );
 }
 
 export default withReducer('Home', reducer)(Home);
