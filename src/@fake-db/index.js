@@ -1,5 +1,6 @@
 import "./db/e-commerce-db";
 import "./db/home-db";
+import "./db/premiums-db";
 
 import history from "@history";
 import mock from "./mock";

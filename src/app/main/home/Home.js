@@ -15,6 +15,7 @@ import AccountInformationTab from "./tabs/AccountInformationTab";
 
 function Home(props) {
   const dispatch = useDispatch();
+
   const widgets = useSelector(selectWidgets);
   const [tabValue, setTabValue] = useState(0);
 

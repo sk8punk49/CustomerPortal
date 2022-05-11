@@ -27,18 +27,29 @@ function createData(key, val) {
 
 function createPriceLevelLabel(param) {
   switch (param) {
+    case 1:
+      return "List";
+      break;
     case 4:
       return "Cost";
+      break;
     default:
       return "True Jobber";
+  }
+}
+
+function invertDiscount(rate) {
+  rate = rate * -1; // Invert
+  if (rate > 0) {
+    return <Typography style={{ color: "green" }}>+{rate}%</Typography>;
+  } else {
+    return <Typography style={{ color: "red" }}>{rate}%</Typography>;
   }
 }
 
 function DiscountTab(props) {
   const dispatch = useDispatch();
   const customerDiscounts = useSelector(selectCustomerDiscounts);
-
-  console.log(customerDiscounts);
 
   useEffect(() => {
     dispatch(getCustomerDiscounts());
@@ -136,7 +147,7 @@ function DiscountTab(props) {
                   </Typography>
                 </TableCell>
                 <TableCell align="right">
-                  <Typography>{row.discount}%</Typography>
+                  {invertDiscount(row.discount)}
                 </TableCell>
               </TableRow>
             ))}

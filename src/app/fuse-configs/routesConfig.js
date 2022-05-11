@@ -5,8 +5,14 @@ import HomeConfig from "app/main/home/HomeConfig";
 import ExampleConfig from "app/main/example/ExampleConfig";
 import FuseLoading from "@fuse/core/FuseLoading";
 import Error404Page from "app/main/404/Error404Page";
+import PremiumsConfig from "app/main/premiums/PremiumsConfig";
 
-const routeConfigs = [...appsConfigs, HomeConfig, ExampleConfig];
+const routeConfigs = [
+  ...appsConfigs,
+  HomeConfig,
+  PremiumsConfig,
+  ExampleConfig,
+];
 
 const routes = [
   // if you want to make whole app auth protected by default change defaultAuth for example:
