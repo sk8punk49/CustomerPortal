@@ -14,10 +14,29 @@ import { motion } from "framer-motion";
 import { TableHead } from "@material-ui/core";
 import { Icon } from "@material-ui/core";
 import TableContainer from "@mui/material/TableContainer";
-
-import Paper from "@mui/material/Paper";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 
 function PremiumsTable(props) {
+  const searchText = useSelector(
+    ({ Premiums }) => Premiums.premiumItems.searchText
+  );
+
+  var filteredResults = props.premiumItems.reduce(function (
+    filteredResults,
+    option
+  ) {
+    if (
+      option.description.toLowerCase().includes(searchText.toLowerCase()) ||
+      option.lineDescription.toLowerCase().includes(searchText.toLowerCase())
+    ) {
+      filteredResults.push(option);
+    }
+    return filteredResults;
+  },
+  []);
+
   const premiumItemsTable = (
     <motion.div
       className="w-full m-8 text-center"
@@ -52,7 +71,7 @@ function PremiumsTable(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.premiumItems.map((row) => (
+              {filteredResults.map((row) => (
                 <TableRow key={row.id}>
                   <TableCell component="th" scope="row">
                     <Typography className="font-medium">

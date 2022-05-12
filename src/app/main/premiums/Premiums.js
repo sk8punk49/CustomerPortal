@@ -64,7 +64,7 @@ function Premiums(props) {
         />
       }
       content={
-        <div className="h-400">
+        <div className="w-full h-400">
           <PremiumsTable
             remainingCredits={remainingCredits}
             premiumItems={premiumItems}

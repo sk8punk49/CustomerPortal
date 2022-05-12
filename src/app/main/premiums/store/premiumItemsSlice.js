@@ -25,7 +25,7 @@ const premiumItemsSlice = createSlice({
     searchText: "",
   }),
   reducers: {
-    setProductsSearchText: {
+    setPremiumItemsSearchText: {
       reducer: (state, action) => {
         state.searchText = action.payload;
       },

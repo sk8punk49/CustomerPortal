@@ -8,8 +8,13 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectMainTheme } from "app/store/fuse/settingsSlice";
+import { setPremiumItemsSearchText } from "./store/premiumItemsSlice";
 
 function PremiumsHeader(props) {
+  const dispatch = useDispatch();
+  const searchText = useSelector(
+    ({ Premiums }) => Premiums.premiumItems.searchText
+  );
   const mainTheme = useSelector(selectMainTheme);
 
   return (
@@ -49,9 +54,11 @@ function PremiumsHeader(props) {
               className="flex flex-1 mx-8"
               disableUnderline
               fullWidth
+              value={searchText}
               inputProps={{
                 "aria-label": "Search",
               }}
+              onChange={(ev) => dispatch(setPremiumItemsSearchText(ev))}
             />
           </Paper>
         </ThemeProvider>
