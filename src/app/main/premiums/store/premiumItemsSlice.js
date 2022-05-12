@@ -10,7 +10,6 @@ export const getPremiumItems = createAsyncThunk(
   async () => {
     const response = await axios.get("/api/premiums/premiumItems");
     const data = await response.data;
-    console.log(data);
     return data;
   }
 );
@@ -18,8 +17,7 @@ export const getPremiumItems = createAsyncThunk(
 const premiumItemAdapter = createEntityAdapter({});
 
 export const { selectAll: selectPremiumItems } =
-  premiumItemAdapter.getSelectors((state) => state.Home.widgets);
-
+  premiumItemAdapter.getSelectors((state) => state.Premiums.premiumItems);
 
 const premiumItemsSlice = createSlice({
   name: "premiums/premiumItems",

@@ -11,6 +11,9 @@ import { selectMainTheme } from "app/store/fuse/settingsSlice";
 
 function PremiumsBalances(props) {
   const mainTheme = useSelector(selectMainTheme);
+  function currencyFormat(num) {
+    return "$" + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
   return (
     <motion.div
       className="w-full m-8 text-center"
@@ -19,20 +22,26 @@ function PremiumsBalances(props) {
     >
       <Grid container spacing={2}>
         <Grid item xs={3}>
+          <Typography className="font-medium">Earned:</Typography>
+          <Typography className="subtitle1">
+            {currencyFormat(props.totalCredits)}
+          </Typography>
+        </Grid>
+        <Grid item xs={3}>
+          <Typography className="font-medium">Remaining:</Typography>
+          <Typography className="subtitle1">
+            {currencyFormat(props.remainingCredits)}
+          </Typography>
+        </Grid>
+        <Grid item xs={3}>
           <Typography className="font-medium">Items in Cart: </Typography>
-          <Typography className="subtitle1">{props.cartCount}</Typography>
+          <Typography className="subtitle1">{props.cartItemCount}</Typography>
         </Grid>
         <Grid item xs={3}>
           <Typography className="font-medium">Cart Subtotal:</Typography>
-          <Typography className="subtitle1">$0.00</Typography>
-        </Grid>
-        <Grid item xs={3}>
-          <Typography className="font-medium">Credit:</Typography>
-          <Typography className="subtitle1">$0.00</Typography>
-        </Grid>
-        <Grid item xs={3}>
-          <Typography className="font-medium">Total:</Typography>
-          <Typography className="subtitle1">$2,762.34</Typography>
+          <Typography className="subtitle1">
+            {currencyFormat(props.cartSubtotal)}
+          </Typography>
         </Grid>
       </Grid>
     </motion.div>
