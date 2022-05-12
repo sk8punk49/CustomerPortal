@@ -64,8 +64,8 @@ function PremiumsTable(props) {
                       {row.description}
                     </Typography>
                   </TableCell>
-                  <TableCell>
-                    <Typography className="flex items-center">
+                  <TableCell align="right">
+                    <Typography className="font-medium">
                       ${row.premium_value}
                     </Typography>
                   </TableCell>
@@ -78,7 +78,8 @@ function PremiumsTable(props) {
                         onClick={() => props.updateBalances(row.premium_value)}
                       >
                         <span className="hidden sm:flex">
-                          <Icon>check_circle</Icon>&nbsp;Available
+                          <Icon>check_circle</Icon>
+                          &nbsp;Available
                         </span>
                         <span className="flex sm:hidden">
                           <Icon>check_circle</Icon>
@@ -88,11 +89,11 @@ function PremiumsTable(props) {
                       <Button
                         className="whitespace-nowrap"
                         variant="contained"
-                        color="warn"
                         onClick={() => props.updateBalances(row.premium_value)}
                       >
                         <span className="hidden sm:flex">
-                          <Icon>highlight_off</Icon>&nbsp;Not Available
+                          <Icon style={{ color: "red" }}>highlight_off</Icon>
+                          &nbsp;Not Available
                         </span>
                         <span className="flex sm:hidden">
                           <Icon>highlight_off</Icon>

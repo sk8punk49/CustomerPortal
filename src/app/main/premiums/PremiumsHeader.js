@@ -49,7 +49,6 @@ function PremiumsHeader(props) {
               className="flex flex-1 mx-8"
               disableUnderline
               fullWidth
-              value=""
               inputProps={{
                 "aria-label": "Search",
               }}

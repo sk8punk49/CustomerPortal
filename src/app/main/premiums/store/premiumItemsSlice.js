@@ -21,11 +21,22 @@ export const { selectAll: selectPremiumItems } =
 
 const premiumItemsSlice = createSlice({
   name: "premiums/premiumItems",
-  initialState: premiumItemAdapter.getInitialState(),
-  reducers: {},
+  initialState: premiumItemAdapter.getInitialState({
+    searchText: "",
+  }),
+  reducers: {
+    setProductsSearchText: {
+      reducer: (state, action) => {
+        state.searchText = action.payload;
+      },
+      prepare: (event) => ({ payload: event.target.value || "" }),
+    },
+  },
   extraReducers: {
     [getPremiumItems.fulfilled]: premiumItemAdapter.setAll,
   },
 });
+
+export const { setPremiumItemsSearchText } = premiumItemsSlice.actions;
 
 export default premiumItemsSlice.reducer;
