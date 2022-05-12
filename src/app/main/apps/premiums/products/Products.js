@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import withReducer from "app/store/withReducer";
-import reducer from "./store";
+import reducer from "../store";
 import { useDispatch, useSelector } from "react-redux";
 import FusePageCarded from "@fuse/core/FusePageCarded";
-import PremiumsHeader from "./PremiumsHeader";
-import PremiumsBalances from "./PremiumsBalances";
-import PremiumsTable from "./PremiumsTable";
-import { getPremiumItems, selectPremiumItems } from "./store/premiumItemsSlice";
 
-function Premiums(props) {
+import ProductsHeader from "./ProductsHeader";
+import CustomerBalances from "./CustomerBalances";
+import ProductsTable from "./ProductsTable";
+import {
+  getPremiumItems,
+  selectPremiumItems,
+} from "../store/premiumItemsSlice";
+
+function Products(props) {
   const dispatch = useDispatch();
   const premiumItems = useSelector(selectPremiumItems);
   const [cartItemCount, setCartItemCount] = useState(0);
@@ -53,9 +57,9 @@ function Premiums(props) {
         contentCard: "overflow-hidden",
         header: "min-h-72 h-72 sm:h-136 sm:min-h-136",
       }}
-      header={<PremiumsHeader />}
+      header={<ProductsHeader />}
       contentToolbar={
-        <PremiumsBalances
+        <CustomerBalances
           remainingCredits={remainingCredits}
           totalCredits={totalCredits}
           cartSubtotal={cartSubtotal}
@@ -64,7 +68,7 @@ function Premiums(props) {
       }
       content={
         <div className="w-full h-400">
-          <PremiumsTable
+          <ProductsTable
             remainingCredits={remainingCredits}
             premiumItems={premiumItems}
             updateBalances={addPremiumItem}
@@ -75,4 +79,4 @@ function Premiums(props) {
     />
   );
 }
-export default withReducer("Premiums", reducer)(Premiums);
+export default withReducer("Premiums", reducer)(Products);

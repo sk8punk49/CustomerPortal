@@ -21,9 +21,15 @@ const navigationConfig = [
         id: "premiums",
         title: "Premiums",
         type: "item",
-        url: "/premiums",
+        url: "/apps/premiums/products",
       },
-
+      {
+        id: "premiums-view-cart",
+        title: "View Cart",
+        type: "item",
+        url: "/apps/premiums/viewCart",
+        exact: true,
+      },
       {
         id: "customer-orders",
         title: "Orders",

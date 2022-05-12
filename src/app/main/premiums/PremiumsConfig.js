@@ -1,4 +1,4 @@
-import Premiums from "./Premiums";
+import Premiums from "./PremiumsViewCart";
 
 const PremiumsConfig = {
   settings: {
