@@ -20,29 +20,32 @@ const navigationConfig = [
       {
         id: "premiums",
         title: "Premiums",
-        type: "item",
-        url: "/apps/premiums/products",
+        type: "collapse",
+        icon: "shopping_basket",
+        url: "/apps/premiums",
+        children: [
+          {
+            id: "premiums-products",
+            title: "Products",
+            type: "item",
+            url: "/apps/premiums/products",
+            exact: true,
+          },
+          {
+            id: "premiums-view-cart",
+            title: "View Cart",
+            type: "item",
+            url: "/apps/premiums/viewCart",
+            exact: true,
+          },
+        ],
       },
-      {
-        id: "premiums-view-cart",
-        title: "View Cart",
-        type: "item",
-        url: "/apps/premiums/viewCart",
-        exact: true,
-      },
+
       {
         id: "customer-orders",
         title: "Orders",
         type: "item",
         url: "/apps/e-commerce/orders",
-        exact: true,
-      },
-
-      {
-        id: "e-commerce-order-detail",
-        title: "Order Details",
-        type: "item",
-        url: "/apps/e-commerce/orders/1",
         exact: true,
       },
     ],

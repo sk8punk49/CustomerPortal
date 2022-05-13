@@ -7,6 +7,10 @@ const PremiumsAppConfig = {
   },
   routes: [
     {
+      path: "/apps/premiums/viewCart",
+      component: lazy(() => import("./viewCart/ViewCart")),
+    },
+    {
       path: "/apps/premiums/products",
       component: lazy(() => import("./products/Products")),
     },

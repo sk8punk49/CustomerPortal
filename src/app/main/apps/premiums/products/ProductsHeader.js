@@ -69,7 +69,7 @@ function ProductsHeader(props) {
       >
         <Button
           component={Link}
-          to="/premiums/viewCart"
+          to="/apps/premiums/viewCart"
           className="whitespace-nowrap"
           variant="contained"
           color="secondary"
