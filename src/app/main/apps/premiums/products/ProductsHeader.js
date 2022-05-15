@@ -75,7 +75,7 @@ function ProductsHeader(props) {
           color="secondary"
         >
           <span className="hidden sm:flex">
-            <Icon>shopping_cart</Icon>&nbsp;View Cart
+            <Icon>shopping_cart</Icon>&nbsp;Checkout
           </span>
           <span className="flex sm:hidden">
             <Icon>shopping_cart</Icon>
