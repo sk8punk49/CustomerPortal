@@ -24,25 +24,46 @@ function Products(props) {
     dispatch(getPremiumItems());
   }, [dispatch]);
 
-  function addPremiumItem(premiumPrice) {
+  function addPremiumItem(premiumPrice, rowId) {
     if (remainingCredits >= premiumPrice) {
       increaseItemCount();
-      updateCartSubtotal(premiumPrice);
+      increaseCartSubtotal(premiumPrice);
       decreaseRemaining(premiumPrice);
     }
   }
 
+  function removePremiumItem(premiumPrice, rowId) {
+    if (cartItemCount > 0) {
+      decreaseItemCount();
+      decreaseCartSubtotal(premiumPrice);
+      increaseRemaining(premiumPrice);
+    }
+  }
+
+  function decreaseItemCount() {
+    setCartItemCount((prevCount) => prevCount - 1);
+  }
   function increaseItemCount() {
     setCartItemCount((prevCount) => prevCount + 1);
   }
 
-  function updateCartSubtotal(premiumPrice) {
+  function increaseCartSubtotal(premiumPrice) {
     setCartSubtotal((prevSubtotal) => prevSubtotal + premiumPrice);
+  }
+
+  function decreaseCartSubtotal(premiumPrice) {
+    setCartSubtotal((prevSubtotal) => prevSubtotal - premiumPrice);
   }
 
   function decreaseRemaining(premiumPrice) {
     setRemainingCredits(
       (prevRemainingCredit) => prevRemainingCredit - premiumPrice
+    );
+  }
+
+  function increaseRemaining(premiumPrice) {
+    setRemainingCredits(
+      (prevRemainingCredit) => prevRemainingCredit + premiumPrice
     );
   }
 
@@ -71,7 +92,8 @@ function Products(props) {
           <ProductsTable
             remainingCredits={remainingCredits}
             premiumItems={premiumItems}
-            updateBalances={addPremiumItem}
+            addPremiumItem={addPremiumItem}
+            removePremiumItem={removePremiumItem}
           />
         </div>
       }

@@ -14,19 +14,67 @@ import { motion } from "framer-motion";
 import { TableHead } from "@material-ui/core";
 import { Icon } from "@material-ui/core";
 import TableContainer from "@mui/material/TableContainer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-
+import { makeStyles } from "@material-ui/core/styles";
 function PremiumsTable(props) {
+  const [itemList, setItemList] = useState(props.premiumItems);
   const searchText = useSelector(
     ({ Premiums }) => Premiums.premiumItems.searchText
   );
 
-  var filteredResults = props.premiumItems.reduce(function (
-    filteredResults,
-    option
-  ) {
+  const useStyles = makeStyles((theme) => ({
+    grow: {
+      position: "relative",
+      "&:hover": {
+        cursor: "pointer",
+        transform: "scale(1.05)",
+      },
+    },
+  }));
+  const classes = useStyles();
+  function increaseRowQty(rowId) {
+    const newItemList = itemList.map((item) => {
+      if (item.id === rowId) {
+        const updatedItem = {
+          ...item,
+          isComplete: !item.isComplete,
+        };
+        if (updatedItem.cartQty == "") {
+          updatedItem.cartQty = 1;
+        } else {
+          updatedItem.cartQty += 1;
+        }
+        return updatedItem;
+      }
+
+      return item;
+    });
+
+    setItemList(newItemList);
+  }
+
+  function decreaseRowQty(rowId) {
+    const newItemList = itemList.map((item) => {
+      if (item.id === rowId) {
+        const updatedItem = {
+          ...item,
+          isComplete: !item.isComplete,
+        };
+        if (updatedItem.cartQty > 0) {
+          updatedItem.cartQty -= 1;
+        }
+        return updatedItem;
+      }
+
+      return item;
+    });
+
+    setItemList(newItemList);
+  }
+
+  var filteredResults = itemList.reduce(function (filteredResults, option) {
     if (
       option.description.toLowerCase().includes(searchText.toLowerCase()) ||
       option.lineDescription.toLowerCase().includes(searchText.toLowerCase())
@@ -34,8 +82,25 @@ function PremiumsTable(props) {
       filteredResults.push(option);
     }
     return filteredResults;
-  },
-  []);
+  }, []);
+
+  function addPremiumItem(premiumPrice, rowId) {
+    if (props.remainingCredits >= premiumPrice) {
+      props.addPremiumItem(premiumPrice, rowId);
+      increaseRowQty(rowId);
+    }
+  }
+
+  function removePremiumItem(premiumPrice, rowId) {
+    itemList.map((item) => {
+      if (item.id == rowId) {
+        if (item.cartQty > 0) {
+          props.removePremiumItem(premiumPrice, rowId);
+          decreaseRowQty(rowId);
+        }
+      }
+    });
+  }
 
   const premiumItemsTable = (
     <motion.div
@@ -50,22 +115,22 @@ function PremiumsTable(props) {
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle1" component="div">
-                    Supplier
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle1" component="div">
                     Description
                   </Typography>
                 </TableCell>
+
                 <TableCell>
                   <Typography align="right" variant="subtitle1" component="div">
                     Price
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography align="right" variant="subtitle1" component="div">
-                    Status
+                  <Typography
+                    align="center"
+                    variant="subtitle1"
+                    component="div"
+                  >
+                    Qty
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -75,50 +140,53 @@ function PremiumsTable(props) {
                 <TableRow key={row.id}>
                   <TableCell component="th" scope="row">
                     <Typography className="font-medium">
-                      {row.lineDescription}
+                      {row.lineDescription} {row.description}
                     </Typography>
                   </TableCell>
-                  <TableCell component="th" scope="row">
-                    <Typography className="font-medium">
-                      {row.description}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Typography className="font-medium">
-                      ${row.premium_value}
-                    </Typography>
-                  </TableCell>
+
                   <TableCell align="right">
                     {props.remainingCredits >= row.premium_value ? (
-                      <Button
-                        className="whitespace-nowrap"
-                        variant="contained"
-                        color="primary"
-                        onClick={() => props.updateBalances(row.premium_value)}
-                      >
-                        <span className="hidden sm:flex">
-                          <Icon>check_circle</Icon>
-                          &nbsp;Available
-                        </span>
-                        <span className="flex sm:hidden">
-                          <Icon>check_circle</Icon>
-                        </span>
-                      </Button>
+                      <Typography className="font-medium">
+                        ${row.premium_value}
+                      </Typography>
                     ) : (
-                      <Button
-                        className="whitespace-nowrap"
-                        variant="contained"
-                        onClick={() => props.updateBalances(row.premium_value)}
-                      >
-                        <span className="hidden sm:flex">
-                          <Icon style={{ color: "red" }}>highlight_off</Icon>
-                          &nbsp;Not Available
-                        </span>
-                        <span className="flex sm:hidden">
-                          <Icon>highlight_off</Icon>
-                        </span>
-                      </Button>
+                      <Typography className="font-medium" color="error">
+                        ${row.premium_value}
+                      </Typography>
                     )}
+                  </TableCell>
+                  <TableCell align="center">
+                    <div className="flex justify-center pb-4">
+                      <Icon
+                        className={classes.grow}
+                        fontSize="large"
+                        color="secondary"
+                        onClick={() =>
+                          removePremiumItem(row.premium_value, row.id)
+                        }
+                      >
+                        indeterminate_check_box
+                      </Icon>
+
+                      <Typography
+                        className="font-medium m-4"
+                        align="center"
+                        variant="subtitle1"
+                        component="div"
+                      >
+                        {row.cartQty == "" ? 0 : row.cartQty}
+                      </Typography>
+                      <Icon
+                        className={classes.grow}
+                        fontSize="large"
+                        color="primary"
+                        onClick={() =>
+                          addPremiumItem(row.premium_value, row.id)
+                        }
+                      >
+                        add_box
+                      </Icon>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

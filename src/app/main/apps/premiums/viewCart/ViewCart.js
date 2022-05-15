@@ -32,9 +32,17 @@ function ViewCart(props) {
   const [cartSubtotal, setCartSubtotal] = useState(8000);
   const dispatch = useDispatch();
   const premiumItems = useSelector(selectPremiumItems);
+  const [randomCartItems, setRandomCartItems] = useState([]);
   useEffect(() => {
     dispatch(getPremiumItems());
   }, [dispatch]);
+
+  useEffect(() => {
+    // var newRandonItems = premiumItems.splice(Math.floor(Math.random() * 1), 4);
+    // console.log(newRandonItems);
+    // console.log(premiumItems);
+    setRandomCartItems(premiumItems);
+  });
 
   function deleteItem(itemRow) {
     for (var i = 0; i < randomCartItems.length; i++) {
@@ -43,7 +51,6 @@ function ViewCart(props) {
       }
     }
   }
-  const randomCartItems = premiumItems.splice(Math.floor(Math.random() * 1), 4);
 
   const viewCartTable = (
     <TableContainer>
