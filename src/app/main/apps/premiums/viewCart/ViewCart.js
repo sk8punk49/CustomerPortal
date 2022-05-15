@@ -38,9 +38,6 @@ function ViewCart(props) {
   }, [dispatch]);
 
   useEffect(() => {
-    // var newRandonItems = premiumItems.splice(Math.floor(Math.random() * 1), 4);
-    // console.log(newRandonItems);
-    // console.log(premiumItems);
     setRandomCartItems(premiumItems);
   });
 
@@ -74,7 +71,7 @@ function ViewCart(props) {
             </TableCell>
             <TableCell>
               <Typography align="right" variant="subtitle1" component="div">
-                Status
+                Qty
               </Typography>
             </TableCell>
           </TableRow>

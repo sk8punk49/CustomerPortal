@@ -18,6 +18,9 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { makeStyles } from "@material-ui/core/styles";
+
+import { ButtonGroup } from "@material-ui/core";
+
 function PremiumsTable(props) {
   const [itemList, setItemList] = useState(props.premiumItems);
   const searchText = useSelector(
@@ -156,37 +159,45 @@ function PremiumsTable(props) {
                     )}
                   </TableCell>
                   <TableCell align="center">
-                    <div className="flex justify-center pb-4">
-                      <Icon
-                        className={classes.grow}
-                        fontSize="large"
-                        color="secondary"
+                    <ButtonGroup variant="text" aria-label="text button group">
+                      <Button
                         onClick={() =>
                           removePremiumItem(row.premium_value, row.id)
                         }
                       >
-                        indeterminate_check_box
-                      </Icon>
+                        <Icon
+                          className={classes.grow}
+                          fontSize="large"
+                          color="secondary"
+                        >
+                          indeterminate_check_box
+                        </Icon>
+                      </Button>
+                      <Button disabled={true} style={{ color: "black" }}>
+                        <Typography
+                          className="font-medium"
+                          align="center"
+                          variant="subtitle1"
+                          component="div"
+                        >
+                          {row.cartQty == "" ? 0 : row.cartQty}
+                        </Typography>
+                      </Button>
 
-                      <Typography
-                        className="font-medium m-4"
-                        align="center"
-                        variant="subtitle1"
-                        component="div"
-                      >
-                        {row.cartQty == "" ? 0 : row.cartQty}
-                      </Typography>
-                      <Icon
-                        className={classes.grow}
-                        fontSize="large"
-                        color="primary"
+                      <Button
                         onClick={() =>
                           addPremiumItem(row.premium_value, row.id)
                         }
                       >
-                        add_box
-                      </Icon>
-                    </div>
+                        <Icon
+                          className={classes.grow}
+                          fontSize="large"
+                          color="primary"
+                        >
+                          add_box
+                        </Icon>
+                      </Button>
+                    </ButtonGroup>
                   </TableCell>
                 </TableRow>
               ))}
