@@ -1,57 +1,59 @@
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import { makeStyles } from '@material-ui/core/styles';
-import { darken } from '@material-ui/core/styles/colorManipulator';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import Typography from '@material-ui/core/Typography';
-import clsx from 'clsx';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { Controller, useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import Button from '@mui/material/Button';
-import Icon from '@mui/material/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import { yupResolver } from '@hookform/resolvers/yup';
-import TextField from '@material-ui/core/TextField';
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import { makeStyles } from "@material-ui/core/styles";
+import { darken } from "@material-ui/core/styles/colorManipulator";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import Typography from "@material-ui/core/Typography";
+import clsx from "clsx";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { Controller, useForm } from "react-hook-form";
+import * as yup from "yup";
+import Button from "@mui/material/Button";
+import Icon from "@mui/material/Icon";
+import IconButton from "@material-ui/core/IconButton";
+import { yupResolver } from "@hookform/resolvers/yup";
+import TextField from "@material-ui/core/TextField";
 
 const schema = yup.object().shape({
-  displayName: yup.string().required('You must enter display name'),
-  email: yup.string().email('You must enter a valid email').required('You must enter a email'),
+  displayName: yup.string().required("You must enter display name"),
+  email: yup
+    .string()
+    .email("You must enter a valid email")
+    .required("You must enter a email"),
   password: yup
     .string()
-    .required('Please enter your password.')
-    .min(8, 'Password is too short - should be 8 chars minimum.'),
-  passwordConfirm: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
+    .required("Please enter your password.")
+    .min(8, "Password is too short - should be 8 chars minimum."),
+  passwordConfirm: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${darken(
-      theme.palette.primary.dark,
-      0.5
-    )} 100%)`,
+    background: `linear-gradient(to right, ${
+      theme.palette.primary.dark
+    } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
     color: theme.palette.primary.contrastText,
   },
   leftSection: {},
   rightSection: {
-    background: `linear-gradient(to right, ${theme.palette.primary.dark} 0%, ${darken(
-      theme.palette.primary.dark,
-      0.5
-    )} 100%)`,
+    background: `linear-gradient(to right, ${
+      theme.palette.primary.dark
+    } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
     color: theme.palette.primary.contrastText,
   },
 }));
 
 const defaultValues = {
-  displayName: '',
-  email: '',
-  password: '',
-  passwordConfirm: '',
+  displayName: "",
+  email: "",
+  password: "",
+  passwordConfirm: "",
 };
 
 function onSubmit(model) {
@@ -67,12 +69,19 @@ function Register() {
     setSelectedTab(value);
   }
 
-  const { control, setValue, formState, handleSubmit, reset, trigger, setError } = useForm({
-    mode: 'onChange',
+  const {
+    control,
+    setValue,
+    formState,
+    handleSubmit,
+    reset,
+    trigger,
+    setError,
+  } = useForm({
+    mode: "onChange",
     defaultValues,
     resolver: yupResolver(schema),
   });
-
 
   const { isValid, dirtyFields, errors } = formState;
 
@@ -80,7 +89,7 @@ function Register() {
     <div
       className={clsx(
         classes.root,
-        'flex flex-col flex-auto items-center justify-center flex-shrink-0 p-16 md:p-24'
+        "flex flex-col flex-auto items-center justify-center flex-shrink-0 p-16 md:p-24"
       )}
     >
       <motion.div
@@ -91,7 +100,7 @@ function Register() {
         <Card
           className={clsx(
             classes.leftSection,
-            'flex flex-col w-full max-w-sm items-center justify-center shadow-0'
+            "flex flex-col w-full max-w-sm items-center justify-center shadow-0"
           )}
           square
         >
@@ -101,11 +110,18 @@ function Register() {
               animate={{ opacity: 1, transition: { delay: 0.2 } }}
             >
               <div className="flex items-center justif-center mb-32">
-                <img className="logo-icon" src="assets/images/logos/CustomerPortal.png" alt="logo" />
+                <img
+                  className="logo-icon"
+                  src="assets/images/logos/CustomerPortal.png"
+                  alt="logo"
+                />
               </div>
             </motion.div>
             <div className="w-full">
-              <form className="flex flex-col justify-center w-full" onSubmit={handleSubmit(onSubmit)}>
+              <form
+                className="flex flex-col justify-center w-full"
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <Controller
                   name="displayName"
                   control={control}
@@ -223,8 +239,6 @@ function Register() {
                 </Button>
               </form>
             </div>
-
-
           </CardContent>
 
           <div className="flex flex-col items-center justify-center pb-32">
@@ -243,7 +257,7 @@ function Register() {
         <div
           className={clsx(
             classes.rightSection,
-            'hidden md:flex flex-1 items-center justify-center p-64'
+            "hidden md:flex flex-1 items-center justify-center p-64"
           )}
         >
           <div className="max-w-320">
@@ -251,9 +265,14 @@ function Register() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
             >
-              <Typography variant="h3" color="inherit" className="font-semibold leading-tight">
-                Welcome <br />
-                to the new<br /> Customer Portal!
+              <Typography
+                variant="h3"
+                color="inherit"
+                className="font-semibold leading-tight"
+              >
+                Register <br />
+                on the Lordco
+                <br /> Customer Portal!
               </Typography>
             </motion.div>
 

@@ -212,7 +212,7 @@ const initialState = {
     salesPerson: "Darcy Harvey",
     photoURL: "assets/images/avatars/Velazquez.jpg",
     companyLogoURL: "assets/images/customerLogos/budgetBrake.png",
-    email: "johndoe@withinpixels.com",
+    email: "johndoe@budget.com",
     shortcuts: ["calendar", "mail", "contacts", "todo"],
   },
 };

@@ -29,6 +29,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import { darken } from "@material-ui/core/styles/colorManipulator";
 import moment from "moment";
+import Checkbox from "@mui/material/Checkbox";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     background: `radial-gradient(${darken(
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ViewCart(props) {
   const [cartItemCount, setCartItemCount] = useState(4);
-  const [totalCredits, setTotalCredits] = useState(9456);
+  const [totalCredits, setTotalCredits] = useState(37456);
   const [remainingCredits, setRemainingCredits] = useState(1456);
   const [cartSubtotal, setCartSubtotal] = useState(8000);
   const dispatch = useDispatch();
@@ -73,6 +75,10 @@ function ViewCart(props) {
     }
   }
 
+  const tripIncentives_label = {
+    inputProps: { "aria-label": "Checkbox demo" },
+  };
+
   const invoice = {
     number: Math.floor(Math.random() * 90000) + 10000,
     from: {
@@ -83,7 +89,113 @@ function ViewCart(props) {
     },
   };
 
-  const service = {};
+  const cartItems = {
+    items: [
+      {
+        id: 3138,
+        status: "active",
+        premiumId: 28,
+        partNumber: "ITUNES75",
+        premiumType: "lordco",
+        itemChoice: "no",
+        itemChoices: "",
+        lineDescription: "Apple",
+        description: "75 iTunes Gift Card",
+        retail_price: 75,
+        cost_price: 75,
+        premium_value: 2000,
+        supplierId: 0,
+        createDate: "",
+        createdBy_employeeId: null,
+        modifiedBy_employeeId: 0,
+        cartQty: 1,
+      },
+      {
+        id: 3137,
+        status: "active",
+        premiumId: 28,
+        partNumber: "50 Costco Gift Card",
+        premiumType: "lordco",
+        itemChoice: "no",
+        itemChoices: "",
+        lineDescription: "Costco",
+        description: "50 Costco Gift Card",
+        retail_price: 50,
+        cost_price: 50,
+        premium_value: 2000,
+        supplierId: 0,
+        createDate: "",
+        createdBy_employeeId: null,
+        modifiedBy_employeeId: 2916,
+        cartQty: 2,
+      },
+      {
+        id: 3135,
+        status: "active",
+        premiumId: 28,
+        partNumber: "TimeBox",
+        premiumType: "lordco",
+        itemChoice: "no",
+        itemChoices: "",
+        lineDescription: "Lenovo",
+        description: "Timebox-EVO Speaker",
+        retail_price: 37,
+        cost_price: 34,
+        premium_value: 2000,
+        supplierId: 0,
+        createDate: "",
+        createdBy_employeeId: null,
+        modifiedBy_employeeId: 2916,
+        cartQty: 2,
+      },
+      {
+        id: 3136,
+        status: "active",
+        premiumId: 28,
+        partNumber: "Jumbo Joe",
+        premiumType: "lordco",
+        itemChoice: "no",
+        itemChoices: "",
+        lineDescription: "Weber",
+        description: "Jumbo Joe 18 Portable Charcoal Grill",
+        retail_price: 120.99,
+        cost_price: 93.98,
+        premium_value: 2000,
+        supplierId: 0,
+        createDate: "",
+        createdBy_employeeId: null,
+        modifiedBy_employeeId: 2916,
+        cartQty: 3,
+      },
+      {
+        id: 3141,
+        status: "active",
+        premiumId: 28,
+        partNumber: "ITUNES150",
+        premiumType: "lordco",
+        itemChoice: "no",
+        itemChoices: "",
+        lineDescription: "Apple",
+        description: "150 iTunes Gift Card",
+        retail_price: 150,
+        cost_price: 150,
+        premium_value: 4000,
+        supplierId: 0,
+        createDate: "",
+        createdBy_employeeId: null,
+        modifiedBy_employeeId: 0,
+        cartQty: 5,
+      },
+    ],
+  };
+
+  function invoiceGrandTotal() {
+    var invoiceTotal = 0;
+    cartItems.items.map(
+      (row) => (invoiceTotal += row.premium_value * row.cartQty)
+    );
+    return invoiceTotal;
+  }
 
   const viewCartTable = (
     <TableContainer>
@@ -239,7 +351,9 @@ function ViewCart(props) {
 
                       {user.data.address1 && (
                         <Typography color="textSecondary">
-                          {user.data.address1} {user.data.address2}
+                          {user.data.address1} {user.data.address2}{" "}
+                          {user.data.city} {user.data.province}&nbsp;
+                          {user.data.postalCode}
                         </Typography>
                       )}
                       {user.data.phoneNumber && (
@@ -293,7 +407,7 @@ function ViewCart(props) {
                         </Typography>
                       </td>
                       <td className="px-16">
-                        <Typography>$36,000</Typography>
+                        <Typography>${invoiceGrandTotal()}</Typography>
                       </td>
                     </tr>
                   </tbody>
@@ -304,28 +418,32 @@ function ViewCart(props) {
                 <Table className="simple">
                   <TableHead>
                     <TableRow>
-                      <TableCell>SERVICE</TableCell>
-                      <TableCell>UNIT</TableCell>
+                      <TableCell>ITEM</TableCell>
                       <TableCell align="right">UNIT PRICE</TableCell>
                       <TableCell align="right">QUANTITY</TableCell>
                       <TableCell align="right">TOTAL</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    <TableRow key={service.id}>
-                      <TableCell>
-                        <Typography className="mb-8" variant="subtitle1">
-                          {service.title}
-                        </Typography>
-                        <Typography variant="caption" color="textSecondary">
-                          {service.detail}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>{service.unit}</TableCell>
-                      <TableCell align="right"></TableCell>
-                      <TableCell align="right">{service.quantity}</TableCell>
-                      <TableCell align="right"></TableCell>
-                    </TableRow>
+                    {cartItems.items.map((row) => (
+                      <TableRow key={row.id}>
+                        <TableCell>
+                          <Typography className="mb-8" variant="subtitle1">
+                            {row.description}
+                          </Typography>
+                          <Typography variant="caption" color="textSecondary">
+                            {row.lineDescription}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="right">
+                          ${row.premium_value}
+                        </TableCell>
+                        <TableCell align="right">{row.cartQty}</TableCell>
+                        <TableCell align="right">
+                          ${row.cartQty * row.premium_value}
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
 
@@ -338,7 +456,7 @@ function ViewCart(props) {
                           variant="subtitle1"
                           color="textSecondary"
                         >
-                          SUBTOTAL
+                          TOTAL EARNED
                         </Typography>
                       </TableCell>
                       <TableCell align="right">
@@ -346,10 +464,51 @@ function ViewCart(props) {
                           className="font-normal"
                           variant="subtitle1"
                           color="textSecondary"
-                        ></Typography>
+                        >
+                          ${totalCredits}
+                        </Typography>
                       </TableCell>
                     </TableRow>
-
+                    <TableRow>
+                      <TableCell>
+                        <Typography
+                          className="font-normal"
+                          variant="subtitle1"
+                          color="textSecondary"
+                        >
+                          TOTAL REDEEMED
+                        </Typography>
+                      </TableCell>
+                      <TableCell align="right">
+                        <Typography
+                          className="font-normal"
+                          variant="subtitle1"
+                          color="textSecondary"
+                        >
+                          ${invoiceGrandTotal()}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        <Typography
+                          className="font-normal"
+                          variant="subtitle1"
+                          color="textSecondary"
+                        >
+                          TOTAL REMAINING
+                        </Typography>
+                      </TableCell>
+                      <TableCell align="right">
+                        <Typography
+                          className="font-normal"
+                          variant="subtitle1"
+                          color="textSecondary"
+                        >
+                          ${remainingCredits}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
                     <TableRow>
                       <TableCell>
                         <Typography
@@ -365,14 +524,16 @@ function ViewCart(props) {
                           className="font-light"
                           variant="h4"
                           color="textSecondary"
-                        ></Typography>
+                        >
+                          ${invoiceGrandTotal()}
+                        </Typography>
                       </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
               </div>
 
-              <div className="mt-96 print:mt-0 print:px-16">
+              <div className="mt-48 print:mt-0 print:px-16">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <img
@@ -383,12 +544,23 @@ function ViewCart(props) {
                   </div>
                 </div>
                 <Typography
-                  className="font-large mb-24"
+                  className="font-large"
                   variant="h5"
                   color="textSecondary"
                 >
                   Thank-you for your business
                 </Typography>
+
+                {remainingCredits > 0 ? (
+                  <Typography color="textSecondary" className="mb-24">
+                    I would like to use my remaining balance of $
+                    {remainingCredits} towards the trip incentives program.
+                    <Checkbox {...tripIncentives_label} defaultChecked />
+                  </Typography>
+                ) : (
+                  ""
+                )}
+
                 <Typography variant="subtitle1" component="div">
                   Comments
                 </Typography>

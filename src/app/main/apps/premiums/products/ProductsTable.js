@@ -143,7 +143,10 @@ function PremiumsTable(props) {
                 <TableRow key={row.id}>
                   <TableCell component="th" scope="row">
                     <Typography className="font-medium">
-                      {row.lineDescription} {row.description}
+                      {row.description}
+                    </Typography>
+                    <Typography variant="caption" color="textSecondary">
+                      {row.lineDescription}
                     </Typography>
                   </TableCell>
 
