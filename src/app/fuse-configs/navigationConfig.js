@@ -18,10 +18,18 @@ const navigationConfig = [
         url: "/home",
       },
       {
+        id: "tradeshow",
+        title: "Tradeshow",
+        icon: "build",
+        type: "item",
+        url: "/apps/tradeshow/products",
+        exact: true,
+      },
+      {
         id: "premiums",
         title: "Premiums",
         type: "collapse",
-        icon: "shopping_basket",
+        icon: "card_giftcard",
         url: "/apps/premiums",
         children: [
           {
