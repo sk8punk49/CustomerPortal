@@ -17,7 +17,7 @@ function ProductsHeader(props) {
   const mainTheme = useSelector(selectMainTheme);
 
   return (
-    <div className="flex flex-1 w-full items-center justify-between">
+    <div className="flex flex-1 w-full items-center justify-between mt-24">
       <div className="flex items-center">
         <Typography
           component={motion.span}

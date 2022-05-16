@@ -14,6 +14,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { Button } from "@material-ui/core";
 
 import ProductsHeader from "./ProductsHeader";
+import ProductsTable from "./ProductTable";
+import SubCategories from "./SubCategories";
+
 import CustomerBalances from "./CustomerBalances";
 import {
   selectTradeshowMajorCategories,
@@ -23,6 +26,11 @@ import {
   selectTradeshowMajorCategoryLineCodes,
   getTradeshowMajorCategoryLineCodes,
 } from "../store/tradeshowMajorCategoryLineCodesSlice";
+import {
+  selectTradeshowItems,
+  getTradeshowItems,
+} from "../store/tradeshowItemsSlice";
+
 import withReducer from "app/store/withReducer";
 import reducer from "../store";
 import { Typography } from "@material-ui/core";
@@ -35,25 +43,54 @@ function Products() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const pageLayout = useRef(null);
-  const [tabValue, setTabValue] = useState(0);
+  const [lineCode_groupId, setLineCode_groupId] = useState(0);
   const [cartItemCount, setCartItemCount] = useState(0);
   const [cartSubtotal, setCartSubtotal] = useState(0);
   const majorCategories = useSelector(selectTradeshowMajorCategories);
+  const [selectedMajorCategory, setSelectedMajorCategory] = useState("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const getMajorCategory_lineCodes = useSelector(
     selectTradeshowMajorCategoryLineCodes
   );
+  const tradeshowItems = useSelector(selectTradeshowItems);
   const [filterMajorCatoryLineCodes, setFilterMajorCatoryLineCodes] = useState(
     []
   );
+  const [tableItems, setTableItems] = useState([]);
 
   useEffect(() => {
     dispatch(getTradeshowMajorCategories());
     dispatch(getTradeshowMajorCategoryLineCodes());
+    dispatch(getTradeshowItems());
   }, [dispatch]);
 
-  function handleChangeCategory(value) {
-    setTabValue(value);
-    filter_majorCatory_lineCodes(value);
+  function handleChangeCategory(lineCode_groupId, categoryDescription) {
+    setTableItems([]);
+    setLineCode_groupId(lineCode_groupId);
+    setSelectedMajorCategory(categoryDescription);
+    filter_majorCatory_lineCodes(lineCode_groupId);
+  }
+
+  function update_selected_subCategory(subcategory) {
+    setSelectedSubCategory(subcategory);
+  }
+
+  function showTableItems_byLineCode(lineCode) {
+    const filtered_tradeshowItems = [];
+    tradeshowItems.map((item) => {
+      if (item.lineCode === lineCode) {
+        const updatedItem = {
+          ...item,
+          // test: "WORKS!!##$",
+        };
+        filtered_tradeshowItems.push(updatedItem);
+        return updatedItem;
+      }
+
+      return item;
+    });
+    //filtered_majorCategory_lineCodes.sort(dynamicSort("description"));
+    setTableItems(filtered_tradeshowItems);
   }
 
   function dynamicSort(property) {
@@ -63,9 +100,6 @@ function Products() {
       property = property.substr(1);
     }
     return function (a, b) {
-      /* next line works with strings and numbers,
-       * and you may want to customize it to your needs
-       */
       var result =
         a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
       return result * sortOrder;
@@ -75,7 +109,7 @@ function Products() {
   function filter_majorCatory_lineCodes(lineCode_groupId) {
     const filtered_majorCategory_lineCodes = [];
     majorCategory_lineCodes.map((item) => {
-      if (item.lineGroup === lineCode_groupId) {
+      if (item.lineCode_groupId === lineCode_groupId) {
         const updatedItem = {
           ...item,
           // test: "WORKS!!##$",
@@ -89,18 +123,6 @@ function Products() {
     filtered_majorCategory_lineCodes.sort(dynamicSort("description"));
     setFilterMajorCatoryLineCodes(filtered_majorCategory_lineCodes);
   }
-
-  const container = {
-    show: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  };
 
   var majorCategory_lineCodes = Object.values(getMajorCategory_lineCodes); // Convert Object to Array
 
@@ -120,8 +142,8 @@ function Products() {
                 <Icon>menu</Icon>
               </IconButton>
             </Hidden>
+            <ProductsHeader />
           </div>
-          <ProductsHeader />
         </div>
       }
       contentToolbar={
@@ -132,32 +154,22 @@ function Products() {
       }
       content={
         <div className="p-24">
-          {tabValue != 0 && (
-            <div>
-              <Typography variant="subtitle1">Sub Categories</Typography>
-              <motion.div
-                className="flex flex-wrap"
-                variants={container}
-                initial="hidden"
-                animate="show"
-              >
-                {filterMajorCatoryLineCodes.map((row) => (
-                  <motion.div
-                    key={row.id}
-                    variants={item}
-                    className="flex sm:w-1/3 w-full p-12"
-                  >
-                    <ListItem
-                      className="text-center"
-                      style={{ border: "2px solid #006294" }}
-                      button
-                    >
-                      <ListItemText primary={row.description} />
-                    </ListItem>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
+          {tableItems.length > 0 ? (
+            <ProductsTable
+              lineCode_groupId={lineCode_groupId}
+              handleChangeCategory={handleChangeCategory}
+              selectedSubCategory={selectedSubCategory}
+              selectedMajorCategory={selectedMajorCategory}
+            />
+          ) : (
+            lineCode_groupId != 0 && (
+              <SubCategories
+                update_selected_subCategory={update_selected_subCategory}
+                showTableItems_byLineCode={showTableItems_byLineCode}
+                filterMajorCatoryLineCodes={filterMajorCatoryLineCodes}
+                selectedMajorCategory={selectedMajorCategory}
+              />
+            )
           )}
         </div>
       }
@@ -171,7 +183,9 @@ function Products() {
             <List
               key={row.id}
               dense
-              onClick={() => handleChangeCategory(row.id)}
+              onClick={() =>
+                handleChangeCategory(row.id, row.groupDesc_tradeshow)
+              }
             >
               <ListItem button>
                 <ListItemText primary={row.groupDesc_tradeshow} />
