@@ -390,6 +390,14 @@ function ViewCart(props) {
                         </Typography>
                       </td>
                     </tr>
+                    <tr>
+                      <td className="text-right">
+                        <Typography color="textSecondary">ACCOUNT #</Typography>
+                      </td>
+                      <td className="px-16">
+                        <Typography>{user.data.accountNumber}</Typography>
+                      </td>
+                    </tr>
 
                     <tr>
                       <td className="text-right">
@@ -544,7 +552,7 @@ function ViewCart(props) {
                   </div>
                 </div>
                 <Typography
-                  className="font-large"
+                  className="font-large mt-8"
                   variant="h5"
                   color="textSecondary"
                 >
