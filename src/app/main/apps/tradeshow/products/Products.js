@@ -7,12 +7,11 @@ import { useRef, useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
-import { Paper } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { Button } from "@material-ui/core";
 
+import { Paper, Typography, Button, ButtonGroup, CardContent, TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from "@material-ui/core";
 import ProductsHeader from "./ProductsHeader";
 import ProductsTable from "./ProductTable";
 import SubCategories from "./SubCategories";
@@ -33,7 +32,7 @@ import {
 
 import withReducer from "app/store/withReducer";
 import reducer from "../store";
-import { Typography } from "@material-ui/core";
+
 
 const useStyles = makeStyles({
   layoutRoot: {},
@@ -57,7 +56,10 @@ function Products() {
     []
   );
   const [tableItems, setTableItems] = useState([]);
-
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+  };
   useEffect(() => {
     dispatch(getTradeshowMajorCategories());
     dispatch(getTradeshowMajorCategoryLineCodes());
@@ -81,7 +83,7 @@ function Products() {
       if (item.lineCode === lineCode) {
         const updatedItem = {
           ...item,
-          // test: "WORKS!!##$",
+          cartQty: 0,
         };
         filtered_tradeshowItems.push(updatedItem);
         return updatedItem;
@@ -111,8 +113,7 @@ function Products() {
     majorCategory_lineCodes.map((item) => {
       if (item.lineCode_groupId === lineCode_groupId) {
         const updatedItem = {
-          ...item,
-          // test: "WORKS!!##$",
+          ...item
         };
         filtered_majorCategory_lineCodes.push(updatedItem);
         return updatedItem;
@@ -125,6 +126,42 @@ function Products() {
   }
 
   var majorCategory_lineCodes = Object.values(getMajorCategory_lineCodes); // Convert Object to Array
+
+  const defaultView = (
+    <motion.div
+      className="flex flex-row w-full m-8"
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
+    >
+      <motion.div variants={item} className="flex w-full sm:w-1/2 p-12">
+        <Paper className="w-full rounded-20 shadow">
+          <div className="w-full">
+            <CardContent>
+              <div className="flex items-center justify-between p-20 h-64">
+                <Typography className="text-16 font-medium">
+
+                  Best Deals of the Year
+                </Typography>
+              </div>
+            </CardContent>
+          </div>
+        </Paper>
+      </motion.div>
+      <motion.div variants={item} className="flex w-full sm:w-1/2 p-12">
+        <Paper className="w-full rounded-20 shadow">
+          <div className="w-full">
+            <CardContent>
+              <div className="flex items-center justify-between p-20 h-64">
+                <Typography className="text-16 font-medium">
+                  Product Displays & Demos
+                </Typography>
+              </div>
+            </CardContent>
+          </div>
+        </Paper>
+      </motion.div>
+    </motion.div>
+  )
 
   return (
     <FusePageCarded
@@ -153,9 +190,11 @@ function Products() {
         />
       }
       content={
-        <div className="p-24">
+        <div className="w-full p-24">
+          {tableItems.length == 0 && lineCode_groupId == 0 ? defaultView : ""}
           {tableItems.length > 0 ? (
             <ProductsTable
+              tableItems={tableItems}
               lineCode_groupId={lineCode_groupId}
               handleChangeCategory={handleChangeCategory}
               selectedSubCategory={selectedSubCategory}

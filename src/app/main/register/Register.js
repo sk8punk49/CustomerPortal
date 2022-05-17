@@ -35,16 +35,14 @@ const schema = yup.object().shape({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: `linear-gradient(to right, ${
-      theme.palette.primary.dark
-    } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
+    background: `linear-gradient(to right, ${theme.palette.primary.dark
+      } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
     color: theme.palette.primary.contrastText,
   },
   leftSection: {},
   rightSection: {
-    background: `linear-gradient(to right, ${
-      theme.palette.primary.dark
-    } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
+    background: `linear-gradient(to right, ${theme.palette.primary.dark
+      } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
     color: theme.palette.primary.contrastText,
   },
 }));
@@ -281,7 +279,7 @@ function Register() {
               animate={{ opacity: 1, transition: { delay: 0.3 } }}
             >
               <Typography variant="subtitle1" color="inherit" className="mt-32">
-                Delivering your Success!
+                Delivering a better customer experience!
               </Typography>
             </motion.div>
           </div>
