@@ -45,7 +45,7 @@ function invertDiscount(rate) {
   }
 }
 
-function DiscountTab(props) {
+function CustomerDiscounts(props) {
   const dispatch = useDispatch();
   const customerDiscounts = useSelector(selectCustomerDiscounts);
 
@@ -61,51 +61,13 @@ function DiscountTab(props) {
     },
   };
 
-  console.log(customerDiscounts);
-
-  const accountDiscountInformation = [
-    createData("Invoice Discount", "10%"),
-    createData("Discount Level", "True Jobber"),
-  ];
-
   const item = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0 },
   };
 
-
-
-  const accountDiscountTable = (
-    <CardContent>
-      <div className="flex items-center justify-between p-20 h-64">
-        <Typography className="text-16 font-medium">
-          Account Discounts
-        </Typography>
-      </div>
-      <TableContainer>
-        <Table aria-label="simple table">
-          <TableBody>
-            {accountDiscountInformation.map((row) => (
-              <TableRow key={row.key}>
-                <TableCell component="th" scope="row">
-                  <Typography className="font-medium">{row.key}</Typography>
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  <Typography className="font-medium">{row.val}</Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </CardContent>
-  );
-
   const lineDiscountInformationTable = (
     <CardContent>
-      <div className="flex items-center justify-between p-20 h-64">
-        <Typography className="text-16 font-medium">Line Discounts</Typography>
-      </div>
       <TableContainer>
         <Table aria-label="simple table">
           <TableHead>
@@ -160,28 +122,19 @@ function DiscountTab(props) {
   );
 
   return (
-    <motion.div
-      className="flex flex-wrap"
-      variants={container}
-      initial="hidden"
-      animate="show"
-    >
-      <motion.div variants={item} className="flex sm:w-1/3 w-full p-12">
-        <Paper className="w-full rounded-20 shadow">
-          <div className="overflow-auto h-400 w-full">
-            {accountDiscountTable}
-          </div>
-        </Paper>
-      </motion.div>
-      <motion.div variants={item} className="flex sm:w-2/3 w-full p-12">
-        <Paper className="w-full rounded-20 shadow">
-          <div className="overflow-auto h-400 w-full">
-            {lineDiscountInformationTable}
-          </div>
-        </Paper>
-      </motion.div>
+    <motion.div variants={item} className="flex w-full p-12">
+      <div className=" w-full">
+        <div className="flex items-center justify-between p-20 h-64">
+          <Typography className="text-16 font-medium">
+            Line Discounts
+          </Typography>
+        </div>
+        <div className="overflow-auto h-400">
+          {lineDiscountInformationTable}
+        </div>
+      </div>
     </motion.div>
   );
 }
 
-export default DiscountTab;
+export default CustomerDiscounts;

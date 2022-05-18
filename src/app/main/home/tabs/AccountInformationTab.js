@@ -1,5 +1,3 @@
-
-
 import * as React from "react";
 import { useSelector } from "react-redux";
 
@@ -15,13 +13,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Icon } from "@material-ui/core";
+import CustomerDiscounts from "./CustomerDiscounts";
 
 function createData(key, val) {
   return { key, val };
 }
 
 function AccountInformationTab(props) {
-
   const user = useSelector(({ auth }) => auth.user);
 
   const container = {
@@ -73,6 +71,8 @@ function AccountInformationTab(props) {
     createData("Balance 60 Days", "$0.00"),
     createData("Balance 90 Days", "$0.00"),
     createData("Balance 120 Days", "$0.00"),
+    createData("Invoice Discount", "10%"),
+    createData("Discount Level", "True Jobber"),
   ];
 
   const item = {
@@ -143,9 +143,7 @@ function AccountInformationTab(props) {
   const accountBalanceTable = (
     <CardContent>
       <div className="flex items-center justify-between p-20 h-64">
-        <Typography className="text-16 font-medium">
-          Account Balances
-        </Typography>
+        <Typography className="text-16 font-medium">Account Status</Typography>
       </div>
       <TableContainer>
         <Table aria-label="simple table">
@@ -169,7 +167,6 @@ function AccountInformationTab(props) {
     </CardContent>
   );
 
-
   return (
     <motion.div
       className="flex flex-wrap"
@@ -190,6 +187,11 @@ function AccountInformationTab(props) {
       <motion.div variants={item} className="flex w-full sm:w-1/3 p-12">
         <Paper className="w-full rounded-20 shadow">
           <div className="w-full">{programIncentiveTable}</div>
+        </Paper>
+      </motion.div>
+      <motion.div variants={item} className="flex sm:w-2/3 w-full p-12">
+        <Paper className="w-full rounded-20 shadow">
+          <CustomerDiscounts />
         </Paper>
       </motion.div>
     </motion.div>

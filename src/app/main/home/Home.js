@@ -9,7 +9,7 @@ import Tabs from "@material-ui/core/Tabs";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HomeDashboardTab from "./tabs/HomeDashboardTab";
-import DiscountTab from "./tabs/DiscountTab";
+
 import { getWidgets, selectWidgets } from "./store/widgetsSlice";
 import AccountInformationTab from "./tabs/AccountInformationTab";
 
@@ -67,18 +67,12 @@ function Home(props) {
             disableRipple
             label="Account"
           />
-          <Tab
-            className="text-14 font-semibold min-h-40 min-w-64 mx-4"
-            disableRipple
-            label="Discounts"
-          />
         </Tabs>
       }
       content={
         <div className="w-full">
           {tabValue === 0 && <HomeDashboardTab />}
           {tabValue === 1 && <AccountInformationTab />}
-          {tabValue === 2 && <DiscountTab />}
         </div>
       }
       innerScroll
