@@ -1,11 +1,11 @@
-import Divider from '@material-ui/core/Divider';
-import Paper from '@material-ui/core/Paper';
-import Select from '@material-ui/core/Select';
-import { useTheme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import _ from '@lodash';
-import { memo, useState } from 'react';
-import ReactApexChart from 'react-apexcharts';
+import Divider from "@material-ui/core/Divider";
+import Paper from "@material-ui/core/Paper";
+import Select from "@material-ui/core/Select";
+import { useTheme } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import _ from "@lodash";
+import { memo, useState } from "react";
+import ReactApexChart from "react-apexcharts";
 
 function Widget9(props) {
   const [currentRange, setCurrentRange] = useState(props.widget.currentRange);
@@ -20,27 +20,8 @@ function Widget9(props) {
     <Paper className="w-full rounded-20 shadow">
       <div className="flex items-center justify-between p-20 h-64">
         <Typography className="text-16 font-medium">{widget.title}</Typography>
-
-        <Select
-          native
-          value={currentRange}
-          onChange={handleChangeRange}
-          inputProps={{
-            name: 'currentRange',
-          }}
-          className="font-medium opacity-75"
-          disableUnderline
-        >
-          {Object.entries(widget.ranges).map(([key, n]) => {
-            return (
-              <option key={key} value={key}>
-                {n}
-              </option>
-            );
-          })}
-        </Select>
       </div>
-      {['weeklySpent', 'totalSpent', 'remaining'].map((id) => (
+      {["weeklySpent", "totalSpent", "remaining"].map((id) => (
         <div className="flex flex-wrap items-center w-full p-12" key={id}>
           <div className="flex flex-col w-full sm:w-1/2 p-8">
             <Typography className="text-13 font-semibold" color="textSecondary">
@@ -58,7 +39,10 @@ function Widget9(props) {
           <div className="flex w-full sm:w-1/2">
             <div className="h-64 w-full">
               <ReactApexChart
-                options={{ ...widget[id].chart.options, colors: [theme.palette.secondary.main] }}
+                options={{
+                  ...widget[id].chart.options,
+                  colors: [theme.palette.secondary.main],
+                }}
                 series={widget[id].chart[currentRange].series}
                 type={widget[id].chart.options.chart.type}
                 height={widget[id].chart.options.chart.height}

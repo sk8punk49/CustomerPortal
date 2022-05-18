@@ -4,12 +4,12 @@ const homeDB = {
   test: [
     {
       id: 1,
-      partNumber: "PH8A"
+      partNumber: "PH8A",
     },
     {
       id: 2,
-      partNumber: "PH2"
-    }
+      partNumber: "PH2",
+    },
   ],
 
   customerDiscounts: [
@@ -2474,7 +2474,7 @@ const homeDB = {
       },
       currentRange: "TW",
       weeklySpent: {
-        title: "YESTERDAY SPENT",
+        title: "THIS WEEK",
         count: {
           "2W": "2,682.85",
           LW: "1,445.34",
@@ -2551,7 +2551,7 @@ const homeDB = {
         },
       },
       totalSpent: {
-        title: "WEEKLY SPENT",
+        title: "THIS MONTH",
         count: {
           "2W": "29,682.85",
           LW: "31,128.19",
@@ -2628,11 +2628,11 @@ const homeDB = {
         },
       },
       remaining: {
-        title: "TOTAL RETURNS",
+        title: "LAST WEEK",
         count: {
           "2W": "4.317,15",
-          LW: "2.871,81",
-          TW: "9.241,66",
+          LW: "2,871.81",
+          TW: "9,241.66",
         },
         chart: {
           "2W": {

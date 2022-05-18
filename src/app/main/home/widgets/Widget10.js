@@ -24,12 +24,21 @@ function Widget10(props) {
             <TableRow>
               {props.widget.table.columns.map((column) => (
                 <TableCell key={column.id}>
-                  <Typography
-                    color="textSecondary"
-                    className="font-semibold whitespace-nowrap"
-                  >
-                    {column.title}
-                  </Typography>
+                  {column.id == "total_amount" ? (
+                    <Typography
+                      color="textSecondary"
+                      className="text-right font-semibold whitespace-nowrap"
+                    >
+                      {column.title}
+                    </Typography>
+                  ) : (
+                    <Typography
+                      color="textSecondary"
+                      className="font-semibold whitespace-nowrap"
+                    >
+                      {column.title}
+                    </Typography>
+                  )}
                 </TableCell>
               ))}
             </TableRow>
@@ -48,6 +57,20 @@ function Widget10(props) {
                           >
                             {cell.value}
                           </Link>
+                        </TableCell>
+                      );
+                    }
+                    case "total_amount": {
+                      return (
+                        <TableCell
+                          key={cell.id}
+                          align="right"
+                          component="th"
+                          scope="row"
+                        >
+                          <Typography className={cell.classes}>
+                            {cell.value}
+                          </Typography>
                         </TableCell>
                       );
                     }
