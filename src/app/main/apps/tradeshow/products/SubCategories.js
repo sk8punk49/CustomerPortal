@@ -1,8 +1,9 @@
 import React from "react";
-import { Typography, ListItemText, ListItem } from "@material-ui/core";
+import { useTheme, Typography, ListItemText, ListItem, Icon } from "@material-ui/core";
 import { motion } from "framer-motion";
 
 function SubCategories(props) {
+  const theme = useTheme();
   const container = {
     show: {
       transition: {
@@ -15,6 +16,10 @@ function SubCategories(props) {
     show: { opacity: 1, y: 0 },
   };
 
+  function returnTo_main() {
+    props.resetPage();
+  }
+
   function showTableItems_byLineCode(lineCode, description) {
     props.update_selected_subCategory(description);
     props.showTableItems_byLineCode(lineCode);
@@ -22,6 +27,32 @@ function SubCategories(props) {
 
   return (
     <div>
+      <div className="flex flex-1 w-full items-center justify-between">
+        <div className="flex flex-col items-start max-w-full min-w-0">
+          <motion.div
+            initial={{ x: 20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1, transition: { delay: 0.3 } }}
+          >
+            <Typography
+              className="flex items-center sm:mb-12"
+              onClick={() =>
+                returnTo_main()
+              }
+              role="button"
+              color="inherit"
+            >
+              <Icon className="text-20">
+                {theme.direction === "ltr" ? "arrow_back" : "arrow_forward"}
+              </Icon>
+              <span className="hidden sm:flex mx-4 font-medium">
+                Back to Main
+              </span>
+            </Typography>
+          </motion.div>
+
+
+        </div>
+      </div>
       <Typography variant="subtitle1" color="primary">
         {props.selectedMajorCategory}
       </Typography>

@@ -1,21 +1,15 @@
 import FusePageCarded from "@fuse/core/FusePageCarded";
-import Hidden from "@material-ui/core/Hidden";
-import Icon from "@material-ui/core/Icon";
-import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRef, useState, useEffect } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
-import { motion } from "framer-motion";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import withReducer from "app/store/withReducer";
+import reducer from "../store";
 
-import { Paper, Typography, Button, ButtonGroup, CardContent, TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from "@material-ui/core";
+import { Hidden, Icon, IconButton, List, ListItem, ListItemText } from "@material-ui/core";
 import ProductsHeader from "./ProductsHeader";
 import ProductsTable from "./ProductTable";
 import SubCategories from "./SubCategories";
-
+import LandingPage from "./LandingPage";
 import CustomerBalances from "./CustomerBalances";
 import {
   selectTradeshowMajorCategories,
@@ -30,8 +24,6 @@ import {
   getTradeshowItems,
 } from "../store/tradeshowItemsSlice";
 
-import withReducer from "app/store/withReducer";
-import reducer from "../store";
 
 
 const useStyles = makeStyles({
@@ -56,10 +48,7 @@ function Products() {
     []
   );
   const [tableItems, setTableItems] = useState([]);
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  };
+
   useEffect(() => {
     dispatch(getTradeshowMajorCategories());
     dispatch(getTradeshowMajorCategoryLineCodes());
@@ -75,6 +64,11 @@ function Products() {
 
   function update_selected_subCategory(subcategory) {
     setSelectedSubCategory(subcategory);
+  }
+
+  function resetPage() {
+    setTableItems([]);
+    setLineCode_groupId(0);
   }
 
   function showTableItems_byLineCode(lineCode) {
@@ -127,41 +121,6 @@ function Products() {
 
   var majorCategory_lineCodes = Object.values(getMajorCategory_lineCodes); // Convert Object to Array
 
-  const defaultView = (
-    <motion.div
-      className="flex flex-row w-full m-8"
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
-    >
-      <motion.div variants={item} className="flex w-full sm:w-1/2 p-12">
-        <Paper className="w-full rounded-20 shadow">
-          <div className="w-full">
-            <CardContent>
-              <div className="flex items-center justify-between p-20 h-64">
-                <Typography className="text-16 font-medium">
-
-                  Best Deals of the Year
-                </Typography>
-              </div>
-            </CardContent>
-          </div>
-        </Paper>
-      </motion.div>
-      <motion.div variants={item} className="flex w-full sm:w-1/2 p-12">
-        <Paper className="w-full rounded-20 shadow">
-          <div className="w-full">
-            <CardContent>
-              <div className="flex items-center justify-between p-20 h-64">
-                <Typography className="text-16 font-medium">
-                  Product Displays & Demos
-                </Typography>
-              </div>
-            </CardContent>
-          </div>
-        </Paper>
-      </motion.div>
-    </motion.div>
-  )
 
   return (
     <FusePageCarded
@@ -191,7 +150,7 @@ function Products() {
       }
       content={
         <div className="w-full p-24">
-          {tableItems.length == 0 && lineCode_groupId == 0 ? defaultView : ""}
+          {tableItems.length == 0 && lineCode_groupId == 0 ? <LandingPage /> : ""}
           {tableItems.length > 0 ? (
             <ProductsTable
               tableItems={tableItems}
@@ -203,6 +162,7 @@ function Products() {
           ) : (
             lineCode_groupId != 0 && (
               <SubCategories
+                resetPage={resetPage}
                 update_selected_subCategory={update_selected_subCategory}
                 showTableItems_byLineCode={showTableItems_byLineCode}
                 filterMajorCatoryLineCodes={filterMajorCatoryLineCodes}
