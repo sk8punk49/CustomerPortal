@@ -29,13 +29,14 @@ const navigationConfig = [
         id: "premiums",
         title: "Premiums",
         type: "collapse",
-        icon: "card_giftcard",
+
         url: "/apps/premiums",
         children: [
           {
             id: "premiums-products",
             title: "Premium Ordering",
             type: "item",
+            icon: "card_giftcard",
             url: "/apps/premiums/products",
             exact: true,
           },
@@ -43,17 +44,17 @@ const navigationConfig = [
             id: "premiums-view-cart",
             title: "View Cart",
             type: "item",
+            icon: "shopping_cart",
             url: "/apps/premiums/viewCart",
             exact: true,
           },
         ],
       },
-
       {
         id: "customer-orders",
         title: "Orders",
         type: "item",
-        url: "/apps/e-commerce/orders",
+        url: "/apps/orderHistory/orders",
         exact: true,
       },
     ],

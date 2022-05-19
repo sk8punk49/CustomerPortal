@@ -1,7 +1,12 @@
 import ECommerceAppConfig from "./e-commerce/ECommerceAppConfig";
 import PremiumsAppConfig from "./premiums/PremiumsAppConfig";
 import TradeshowAppConfig from "./tradeshow/TradeshowAppConfig";
-
-const appsConfigs = [ECommerceAppConfig, PremiumsAppConfig, TradeshowAppConfig];
+import OrderHistoryAppConfig from "./orderHistory/OrderHistoryAppConfig";
+const appsConfigs = [
+  ECommerceAppConfig,
+  PremiumsAppConfig,
+  TradeshowAppConfig,
+  OrderHistoryAppConfig,
+];
 
 export default appsConfigs;

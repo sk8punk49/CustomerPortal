@@ -1,38 +1,23 @@
-import DemoContent from "@fuse/core/DemoContent";
-import FusePageSimple from "@fuse/core/FusePageSimple";
-import { makeStyles } from "@material-ui/core/styles";
+import FusePageCarded from "@fuse/core/FusePageCarded";
 
-const useStyles = makeStyles({
-  layoutRoot: {},
-});
-
-function SimpleFullWidthSample() {
-  const classes = useStyles();
-
+function Example() {
   return (
-    <FusePageSimple
+    <FusePageCarded
       classes={{
-        root: classes.layoutRoot,
+        content: "flex",
+        contentCard: "overflow-hidden",
+        header: "min-h-72 h-72 sm:h-136 sm:min-h-136",
       }}
-      header={
-        <div className="p-24">
-          <h4>Example</h4>
-        </div>
-      }
-      contentToolbar={
-        <div className="px-24">
-          <h4>Content Toolbar</h4>
-        </div>
-      }
+      header={<div>HEader</div>}
+      contentToolbar={<div>Toolbar</div>}
       content={
-        <div className="p-24">
-          <h4>Content</h4>
-          <br />
-          <DemoContent />
+        <div className="w-full h-400">
+          <h1>Content</h1>
         </div>
       }
+      innerScroll
     />
   );
 }
 
-export default SimpleFullWidthSample;
+export default Example;

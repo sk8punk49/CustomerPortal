@@ -1,26 +1,28 @@
-import FuseScrollbars from '@fuse/core/FuseScrollbars';
-import FuseUtils from '@fuse/utils';
-import _ from '@lodash';
-import Checkbox from '@material-ui/core/Checkbox';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import FuseLoading from '@fuse/core/FuseLoading';
-import OrdersStatus from '../order/OrdersStatus';
-import { selectOrders, getOrders } from '../store/ordersSlice';
-import OrdersTableHead from './OrdersTableHead';
+import FuseScrollbars from "@fuse/core/FuseScrollbars";
+import FuseUtils from "@fuse/utils";
+import _ from "@lodash";
+import Checkbox from "@material-ui/core/Checkbox";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableRow from "@material-ui/core/TableRow";
+import Typography from "@material-ui/core/Typography";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
+import FuseLoading from "@fuse/core/FuseLoading";
+import OrdersStatus from "../order/OrdersStatus";
+import { selectOrders, getOrders } from "../store/ordersSlice";
+import OrdersTableHead from "./OrdersTableHead";
 
 function OrdersTable(props) {
   const dispatch = useDispatch();
   const orders = useSelector(selectOrders);
-  const searchText = useSelector(({ eCommerceApp }) => eCommerceApp.orders.searchText);
+  const searchText = useSelector(
+    ({ eCommerceApp }) => eCommerceApp.orders.searchText
+  );
 
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState([]);
@@ -28,7 +30,7 @@ function OrdersTable(props) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState({
-    direction: 'asc',
+    direction: "asc",
     id: null,
   });
 
@@ -47,10 +49,10 @@ function OrdersTable(props) {
 
   function handleRequestSort(event, property) {
     const id = property;
-    let direction = 'desc';
+    let direction = "desc";
 
-    if (order.id === property && order.direction === 'desc') {
-      direction = 'asc';
+    if (order.id === property && order.direction === "desc") {
+      direction = "asc";
     }
 
     setOrder({
@@ -140,16 +142,16 @@ function OrdersTable(props) {
               [
                 (o) => {
                   switch (order.id) {
-                    case 'id': {
+                    case "id": {
                       return parseInt(o.id, 10);
                     }
-                    case 'customer': {
+                    case "customer": {
                       return o.customer.firstName;
                     }
-                    case 'payment': {
+                    case "payment": {
                       return o.payment.method;
                     }
-                    case 'status': {
+                    case "status": {
                       return o.status[0].name;
                     }
                     default: {
@@ -174,7 +176,10 @@ function OrdersTable(props) {
                     selected={isSelected}
                     onClick={(event) => handleClick(n)}
                   >
-                    <TableCell className="w-40 md:w-64 text-center" padding="none">
+                    <TableCell
+                      className="w-40 md:w-64 text-center"
+                      padding="none"
+                    >
                       <Checkbox
                         checked={isSelected}
                         onClick={(event) => event.stopPropagation()}
@@ -182,32 +187,61 @@ function OrdersTable(props) {
                       />
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16" component="th" scope="row">
+                    <TableCell
+                      className="p-4 md:p-16"
+                      component="th"
+                      scope="row"
+                    >
                       {n.id}
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16" component="th" scope="row">
+                    <TableCell
+                      className="p-4 md:p-16"
+                      component="th"
+                      scope="row"
+                    >
                       {n.reference}
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16 truncate" component="th" scope="row">
+                    <TableCell
+                      className="p-4 md:p-16 truncate"
+                      component="th"
+                      scope="row"
+                    >
                       {`${n.customer.firstName} ${n.customer.lastName}`}
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
+                    <TableCell
+                      className="p-4 md:p-16"
+                      component="th"
+                      scope="row"
+                      align="right"
+                    >
                       <span>$</span>
                       {n.total}
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16" component="th" scope="row">
+                    <TableCell
+                      className="p-4 md:p-16"
+                      component="th"
+                      scope="row"
+                    >
                       {n.payment.method}
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16" component="th" scope="row">
+                    <TableCell
+                      className="p-4 md:p-16"
+                      component="th"
+                      scope="row"
+                    >
                       <OrdersStatus name={n.status[0].name} />
                     </TableCell>
 
-                    <TableCell className="p-4 md:p-16" component="th" scope="row">
+                    <TableCell
+                      className="p-4 md:p-16"
+                      component="th"
+                      scope="row"
+                    >
                       {n.date}
                     </TableCell>
                   </TableRow>
@@ -224,10 +258,10 @@ function OrdersTable(props) {
         rowsPerPage={rowsPerPage}
         page={page}
         backIconButtonProps={{
-          'aria-label': 'Previous Page',
+          "aria-label": "Previous Page",
         }}
         nextIconButtonProps={{
-          'aria-label': 'Next Page',
+          "aria-label": "Next Page",
         }}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
