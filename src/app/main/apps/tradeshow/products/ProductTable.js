@@ -1,7 +1,17 @@
 import React from "react";
 import {
-  useTheme, Typography, Button, Icon, TableContainer, Table, TableHead, TableBody, TableRow, TableCell,
-  ButtonGroup, CardContent
+  useTheme,
+  Typography,
+  Button,
+  Icon,
+  TableContainer,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  ButtonGroup,
+  CardContent,
 } from "@material-ui/core";
 import { motion } from "framer-motion";
 import { makeStyles } from "@material-ui/core/styles";
@@ -17,14 +27,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 function ProductTable(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [itemList, setItemList] = useState(props.tableItems);
-
-
 
   function returnTo_majorCategories(lineCode_groupId, description) {
     props.handleChangeCategory(lineCode_groupId, description);
@@ -35,7 +40,7 @@ function ProductTable(props) {
     increaseRowQty(itemId);
   }
   function removeTradeshowItem(sellPrice, itemId) {
-    itemList.map((item) => {
+    props.tableItems.map((item) => {
       if (item.id == itemId) {
         if (item.cartQty > 0) {
           props.removeTradeshowItem(sellPrice);
@@ -43,12 +48,10 @@ function ProductTable(props) {
         }
       }
     });
-
-
   }
 
   function increaseRowQty(rowId) {
-    const newItemList = itemList.map((item) => {
+    const newItemList = props.tableItems.map((item) => {
       if (item.id === rowId) {
         const updatedItem = {
           ...item,
@@ -69,7 +72,7 @@ function ProductTable(props) {
   }
 
   function decreaseRowQty(rowId) {
-    const newItemList = itemList.map((item) => {
+    const newItemList = props.tableItems.map((item) => {
       if (item.id === rowId) {
         const updatedItem = {
           ...item,
@@ -86,7 +89,6 @@ function ProductTable(props) {
 
     setItemList(newItemList);
   }
-
 
   const tableItems = (
     <motion.div
@@ -122,7 +124,7 @@ function ProductTable(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {itemList.map((row) => (
+              {props.tableItems.map((row) => (
                 <TableRow key={row.id}>
                   <TableCell component="th" scope="row">
                     <Typography className="font-medium">
@@ -141,11 +143,9 @@ function ProductTable(props) {
                         {row.extraInfo2}
                       </Typography>
                     )}
-
                   </TableCell>
 
                   <TableCell align="right">
-
                     <Typography className="font-medium">
                       ${row.sell_book}
                     </Typography>
@@ -177,9 +177,7 @@ function ProductTable(props) {
                       </Button>
 
                       <Button
-                        onClick={() =>
-                          addTradeshowItem(row.sell_book, row.id)
-                        }
+                        onClick={() => addTradeshowItem(row.sell_book, row.id)}
                       >
                         <Icon
                           className={classes.grow}
@@ -198,8 +196,7 @@ function ProductTable(props) {
         </TableContainer>
       </CardContent>
     </motion.div>
-  )
-
+  );
 
   return (
     <React.Fragment>
@@ -250,7 +247,10 @@ function ProductTable(props) {
                   initial={{ x: -20 }}
                   animate={{ x: 0, transition: { delay: 0.3 } }}
                 >
-                  <Typography color="primary" className="text-16 sm:text-20 truncate font-semibold">
+                  <Typography
+                    color="primary"
+                    className="text-16 sm:text-20 truncate font-semibold"
+                  >
                     {props.selectedSubCategory}
                   </Typography>
                   <Typography variant="caption" className="font-medium">
@@ -265,7 +265,6 @@ function ProductTable(props) {
 
       {tableItems}
     </React.Fragment>
-
   );
 }
 

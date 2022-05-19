@@ -5,7 +5,14 @@ import { useSelector, useDispatch } from "react-redux";
 import withReducer from "app/store/withReducer";
 import reducer from "../store";
 
-import { Hidden, Icon, IconButton, List, ListItem, ListItemText } from "@material-ui/core";
+import {
+  Hidden,
+  Icon,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+} from "@material-ui/core";
 import ProductsHeader from "./ProductsHeader";
 import ProductsTable from "./ProductTable";
 import SubCategories from "./SubCategories";
@@ -23,8 +30,7 @@ import {
   selectTradeshowItems,
   getTradeshowItems,
 } from "../store/tradeshowItemsSlice";
-
-
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   layoutRoot: {},
@@ -55,13 +61,14 @@ function Products() {
     dispatch(getTradeshowItems());
   }, [dispatch]);
 
-
-
   function tradeshowItemSearch(searchText) {
     if (searchText != "") {
       const filtered_tradeshowItems = [];
       tradeshowItems.map((item) => {
-        if (item.partNumber.includes(searchText) || item.description.includes(searchText)) {
+        if (
+          item.partNumber.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.description.toLowerCase().includes(searchText.toLowerCase())
+        ) {
           const updatedItem = {
             ...item,
             cartQty: 0,
@@ -72,18 +79,11 @@ function Products() {
 
         return item;
       });
-      //filtered_majorCategory_lineCodes.sort(dynamicSort("description"));
-      console.log(filtered_tradeshowItems);
+      setSelectedMajorCategory("");
+      setLineCode_groupId(0);
       setTableItems(filtered_tradeshowItems);
-    } else {
-      setTableItems([]);
     }
-
   }
-
-
-
-
 
   function handleChangeCategory(lineCode_groupId, categoryDescription) {
     setTableItems([]);
@@ -137,7 +137,7 @@ function Products() {
     majorCategory_lineCodes.map((item) => {
       if (item.lineCode_groupId === lineCode_groupId) {
         const updatedItem = {
-          ...item
+          ...item,
         };
         filtered_majorCategory_lineCodes.push(updatedItem);
         return updatedItem;
@@ -165,7 +165,6 @@ function Products() {
   }
 
   function decreaseCartSubtotal(sellPrice) {
-
     if (cartItemCount > 0) {
       if (cartSubtotal - sellPrice < 0) {
         setCartSubtotal(0);
@@ -175,7 +174,6 @@ function Products() {
 
       setCartItemCount((prevCount) => prevCount - 1);
     }
-
   }
 
   return (
@@ -206,7 +204,11 @@ function Products() {
       }
       content={
         <div className="w-full p-24">
-          {tableItems.length == 0 && lineCode_groupId == 0 ? <LandingPage /> : ""}
+          {tableItems.length == 0 && lineCode_groupId == 0 ? (
+            <LandingPage />
+          ) : (
+            ""
+          )}
           {tableItems.length > 0 ? (
             <ProductsTable
               removeTradeshowItem={removeTradeshowItem}

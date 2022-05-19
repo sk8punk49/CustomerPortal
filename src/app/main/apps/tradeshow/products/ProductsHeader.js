@@ -14,14 +14,13 @@ function ProductsHeader(props) {
   const dispatch = useDispatch();
   const mainTheme = useSelector(selectMainTheme);
 
-
   const getSearchInput = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       const searchInput = dispatch(setTradeshowItemsSearchText(event)).payload;
       props.tradeshowItemSearch(searchInput);
+      console.log(searchInput);
     }
-  }
-
+  };
 
   return (
     <div className="flex flex-1 w-full items-center justify-between mt-24">
