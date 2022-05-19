@@ -10,7 +10,6 @@ export const getCustomerDiscounts = createAsyncThunk(
   async () => {
     const response = await axios.get("/api/home/customerDiscounts");
     const data = await response.data;
-    console.log(data);
     return data;
   }
 );

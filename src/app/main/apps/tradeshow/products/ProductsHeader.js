@@ -8,13 +8,20 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectMainTheme } from "app/store/fuse/settingsSlice";
+import { setTradeshowItemsSearchText } from "../store/tradeshowItemsSlice";
 
 function ProductsHeader(props) {
   const dispatch = useDispatch();
-  // const searchText = useSelector(
-  //   ({ Premiums }) => Premiums.premiumItems.searchText
-  // );
   const mainTheme = useSelector(selectMainTheme);
+
+
+  const getSearchInput = (event) => {
+    if (event.key === 'Enter') {
+      const searchInput = dispatch(setTradeshowItemsSearchText(event)).payload;
+      props.tradeshowItemSearch(searchInput);
+    }
+  }
+
 
   return (
     <div className="flex flex-1 w-full items-center justify-between mt-24">
@@ -39,12 +46,12 @@ function ProductsHeader(props) {
             className="flex items-center w-full max-w-512 px-8 py-4 rounded-16 shadow"
           >
             <Icon color="action">search</Icon>
-
             <Input
               placeholder="Search"
               className="flex flex-1 mx-8"
               disableUnderline
               fullWidth
+              onKeyDown={(ev) => getSearchInput(ev)}
               inputProps={{
                 "aria-label": "Search",
               }}
@@ -57,8 +64,7 @@ function ProductsHeader(props) {
         animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
       >
         <Button
-          component={Link}
-          to="/apps/premiums/viewCart"
+          onClick={() => getSearchInput()}
           className="whitespace-nowrap"
           variant="contained"
           color="secondary"

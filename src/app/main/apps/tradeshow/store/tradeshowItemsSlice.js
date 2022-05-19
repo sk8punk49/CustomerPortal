@@ -28,10 +28,20 @@ const tradeshowItemsSlice = createSlice({
   initialState: tradeshowItemsAdapter.getInitialState({
     searchText: "",
   }),
-  reducers: {},
+  reducers: {
+    setTradeshowItemsSearchText: {
+      reducer: (state, action) => {
+        state.searchText = action.payload;
+      },
+      prepare: (event) => ({ payload: event.target.value || "" }),
+    },
+  },
   extraReducers: {
     [getTradeshowItems.fulfilled]: tradeshowItemsAdapter.setAll,
   },
 });
+
+
+export const { setTradeshowItemsSearchText } = tradeshowItemsSlice.actions;
 
 export default tradeshowItemsSlice.reducer;

@@ -55,6 +55,36 @@ function Products() {
     dispatch(getTradeshowItems());
   }, [dispatch]);
 
+
+
+  function tradeshowItemSearch(searchText) {
+    if (searchText != "") {
+      const filtered_tradeshowItems = [];
+      tradeshowItems.map((item) => {
+        if (item.partNumber.includes(searchText) || item.description.includes(searchText)) {
+          const updatedItem = {
+            ...item,
+            cartQty: 0,
+          };
+          filtered_tradeshowItems.push(updatedItem);
+          return updatedItem;
+        }
+
+        return item;
+      });
+      //filtered_majorCategory_lineCodes.sort(dynamicSort("description"));
+      console.log(filtered_tradeshowItems);
+      setTableItems(filtered_tradeshowItems);
+    } else {
+      setTableItems([]);
+    }
+
+  }
+
+
+
+
+
   function handleChangeCategory(lineCode_groupId, categoryDescription) {
     setTableItems([]);
     setLineCode_groupId(lineCode_groupId);
@@ -121,6 +151,32 @@ function Products() {
 
   var majorCategory_lineCodes = Object.values(getMajorCategory_lineCodes); // Convert Object to Array
 
+  function addTradeshowItem(sellPrice, itemId) {
+    increaseCartSubtotal(sellPrice);
+    setCartItemCount((prevCount) => prevCount + 1);
+  }
+
+  function removeTradeshowItem(sellPrice, itemId) {
+    decreaseCartSubtotal(sellPrice);
+  }
+
+  function increaseCartSubtotal(sellPrice) {
+    setCartSubtotal((prevAmount) => prevAmount + sellPrice);
+  }
+
+  function decreaseCartSubtotal(sellPrice) {
+
+    if (cartItemCount > 0) {
+      if (cartSubtotal - sellPrice < 0) {
+        setCartSubtotal(0);
+      } else {
+        setCartSubtotal((prevAmount) => prevAmount - sellPrice);
+      }
+
+      setCartItemCount((prevCount) => prevCount - 1);
+    }
+
+  }
 
   return (
     <FusePageCarded
@@ -138,7 +194,7 @@ function Products() {
                 <Icon>menu</Icon>
               </IconButton>
             </Hidden>
-            <ProductsHeader />
+            <ProductsHeader tradeshowItemSearch={tradeshowItemSearch} />
           </div>
         </div>
       }
@@ -153,6 +209,8 @@ function Products() {
           {tableItems.length == 0 && lineCode_groupId == 0 ? <LandingPage /> : ""}
           {tableItems.length > 0 ? (
             <ProductsTable
+              removeTradeshowItem={removeTradeshowItem}
+              addTradeshowItem={addTradeshowItem}
               tableItems={tableItems}
               lineCode_groupId={lineCode_groupId}
               handleChangeCategory={handleChangeCategory}

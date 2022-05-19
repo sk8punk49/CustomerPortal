@@ -35,7 +35,8 @@ function LandingPage() {
                                 <TableBody>
                                     <TableRow>
                                         <TableCell colSpan={2}>
-                                            {tradeshowEventDetails.title}
+                                            <Typography className="font-medium">{tradeshowEventDetails.title}</Typography>
+
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -63,7 +64,6 @@ function LandingPage() {
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
-
                             </Table>
 
                         </CardContent>
