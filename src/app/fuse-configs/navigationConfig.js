@@ -34,7 +34,7 @@ const navigationConfig = [
         children: [
           {
             id: "premiums-products",
-            title: "Products",
+            title: "Premium Ordering",
             type: "item",
             url: "/apps/premiums/products",
             exact: true,

@@ -31,8 +31,8 @@ function ProductTable(props) {
   const classes = useStyles();
   const theme = useTheme();
 
-  function returnTo_majorCategories(lineCode_groupId, description) {
-    props.handleChangeCategory(lineCode_groupId, description);
+  function returnTo_majorCategories(rangeCode, description) {
+    props.handleChangeCategory(rangeCode, description);
   }
 
   function addTradeshowItem(sellPrice, itemId) {
@@ -89,7 +89,8 @@ function ProductTable(props) {
                       {row.description}
                     </Typography>
                     <Typography className="caption" color="textSecondary">
-                      {row.lineCode} {row.partNumber}
+                      {row.ap_lineCode}
+                      {row.partNumber}
                     </Typography>
                     {row.extraInfo1 != "" && (
                       <Typography variant="caption" color="textSecondary">
@@ -158,7 +159,7 @@ function ProductTable(props) {
 
   return (
     <React.Fragment>
-      {props.selectedMajorCategory != "" && (
+      {props.selectedRangeCategory != "" && (
         <div className="flex flex-1 w-full items-center justify-between">
           <div className="flex flex-col items-start max-w-full min-w-0">
             <motion.div
@@ -169,8 +170,8 @@ function ProductTable(props) {
                 className="flex items-center sm:mb-12"
                 onClick={() =>
                   returnTo_majorCategories(
-                    props.lineCode_groupId,
-                    props.selectedMajorCategory
+                    props.rangeCode,
+                    props.selectedRangeCategory
                   )
                 }
                 role="button"
@@ -180,7 +181,7 @@ function ProductTable(props) {
                   {theme.direction === "ltr" ? "arrow_back" : "arrow_forward"}
                 </Icon>
                 <span className="hidden sm:flex mx-4 font-medium">
-                  Back to {props.selectedMajorCategory}
+                  Back to {props.selectedRangeCategory}
                 </span>
               </Typography>
             </motion.div>

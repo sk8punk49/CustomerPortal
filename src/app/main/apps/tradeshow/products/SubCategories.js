@@ -1,5 +1,11 @@
 import React from "react";
-import { useTheme, Typography, ListItemText, ListItem, Icon } from "@material-ui/core";
+import {
+  useTheme,
+  Typography,
+  ListItemText,
+  ListItem,
+  Icon,
+} from "@material-ui/core";
 import { motion } from "framer-motion";
 
 function SubCategories(props) {
@@ -20,9 +26,9 @@ function SubCategories(props) {
     props.resetPage();
   }
 
-  function showTableItems_byLineCode(lineCode, description) {
+  function showTableItems_byGroupCode(groupCode, description) {
     props.update_selected_subCategory(description);
-    props.showTableItems_byLineCode(lineCode);
+    props.showTableItems_byGroupCode(groupCode);
   }
 
   return (
@@ -35,9 +41,7 @@ function SubCategories(props) {
           >
             <Typography
               className="flex items-center sm:mb-12"
-              onClick={() =>
-                returnTo_main()
-              }
+              onClick={() => returnTo_main()}
               role="button"
               color="inherit"
             >
@@ -49,12 +53,10 @@ function SubCategories(props) {
               </span>
             </Typography>
           </motion.div>
-
-
         </div>
       </div>
       <Typography variant="subtitle1" color="primary">
-        {props.selectedMajorCategory}
+        {props.selectedRangeCategory}
       </Typography>
       <Typography variant="subtitle1">Sub Categories</Typography>
 
@@ -64,7 +66,7 @@ function SubCategories(props) {
         initial="hidden"
         animate="show"
       >
-        {props.filterMajorCatoryLineCodes.map((row) => (
+        {props.filterMajorCatoryGroupCodes.map((row) => (
           <motion.div
             key={row.id}
             variants={item}
@@ -72,7 +74,7 @@ function SubCategories(props) {
           >
             <ListItem
               onClick={() =>
-                showTableItems_byLineCode(row.lineCode, row.description)
+                showTableItems_byGroupCode(row.lineCode, row.description)
               }
               className="text-center"
               style={{

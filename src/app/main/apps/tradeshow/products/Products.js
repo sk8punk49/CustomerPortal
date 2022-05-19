@@ -12,9 +12,9 @@ import SubCategories from "./SubCategories";
 import LandingPage from "./LandingPage";
 import CustomerBalances from "./CustomerBalances";
 import {
-  selectTradeshowMajorCategories,
-  getTradeshowMajorCategories,
-} from "../store/tradeshowMajorCategoriesSlice";
+  selectLineCodeMapping,
+  getLineCodeMapping,
+} from "../store/tradeshowLineCodeMappingSlice";
 import {
   selectTradeshowMajorCategoryLineCodes,
   getTradeshowMajorCategoryLineCodes,
@@ -23,7 +23,7 @@ import {
   selectTradeshowItems,
   getTradeshowItems,
 } from "../store/tradeshowItemsSlice";
-import SideNav from "./LeftSideNav";
+
 import LeftSideNav from "./LeftSideNav";
 
 const useStyles = makeStyles({
@@ -34,28 +34,32 @@ function Products() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const pageLayout = useRef(null);
-  const [lineCode_groupId, setLineCode_groupId] = useState(0);
+  const [rangeCode, setRangeCode] = useState(0);
   const [cartItemCount, setCartItemCount] = useState(0);
   const [cartSubtotal, setCartSubtotal] = useState(0);
-  const majorCategories = useSelector(selectTradeshowMajorCategories);
-  const [selectedMajorCategory, setSelectedMajorCategory] = useState("");
+
+  const lineCode_mapping = useSelector(selectLineCodeMapping);
+
+  const [selectedRangeCategory, setSelectedRangeCategory] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const getMajorCategory_lineCodes = useSelector(
     selectTradeshowMajorCategoryLineCodes
   );
   const tradeshowItems = useSelector(selectTradeshowItems);
-  const [filterMajorCatoryLineCodes, setFilterMajorCatoryLineCodes] = useState(
+  const [filterMajorCatoryGroupCodes, setFilterMajorCatoryLineCodes] = useState(
     []
   );
   const [tableItems, setTableItems] = useState([]);
 
   useEffect(() => {
-    dispatch(getTradeshowMajorCategories());
+    dispatch(getLineCodeMapping());
     dispatch(getTradeshowMajorCategoryLineCodes());
     dispatch(getTradeshowItems());
   }, [dispatch]);
 
   function tradeshowItemSearch(searchText) {
+    setSelectedRangeCategory("");
+    setRangeCode(0);
     if (searchText != "") {
       const filtered_tradeshowItems = [];
       tradeshowItems.map((item) => {
@@ -73,17 +77,18 @@ function Products() {
 
         return item;
       });
-      setSelectedMajorCategory("");
-      setLineCode_groupId(0);
+
       setTableItems(filtered_tradeshowItems);
+    } else {
+      setTableItems([]);
     }
   }
 
-  function handleChangeCategory(lineCode_groupId, categoryDescription) {
+  function handleChangeCategory(rangeCode, description) {
     setTableItems([]);
-    setLineCode_groupId(lineCode_groupId);
-    setSelectedMajorCategory(categoryDescription);
-    filter_majorCatory_lineCodes(lineCode_groupId);
+    setRangeCode(rangeCode);
+    setSelectedRangeCategory(description);
+    filter_rangeCode_categories(rangeCode);
   }
 
   function update_selected_subCategory(subcategory) {
@@ -92,13 +97,13 @@ function Products() {
 
   function resetPage() {
     setTableItems([]);
-    setLineCode_groupId(0);
+    setRangeCode(0);
   }
 
-  function showTableItems_byLineCode(lineCode) {
+  function showTableItems_byGroupCode(groupCode) {
     const filtered_tradeshowItems = [];
     tradeshowItems.map((item) => {
-      if (item.lineCode === lineCode) {
+      if (item.groupCode === groupCode) {
         const updatedItem = {
           ...item,
           cartQty: 0,
@@ -126,10 +131,10 @@ function Products() {
     };
   }
 
-  function filter_majorCatory_lineCodes(lineCode_groupId) {
+  function filter_rangeCode_categories(rangeCode) {
     const filtered_majorCategory_lineCodes = [];
     majorCategory_lineCodes.map((item) => {
-      if (item.lineCode_groupId === lineCode_groupId) {
+      if (item.lineCode_groupId === rangeCode) {
         const updatedItem = {
           ...item,
         };
@@ -212,8 +217,6 @@ function Products() {
     }
   }
 
-  console.log(filterMajorCatoryLineCodes);
-
   return (
     <FusePageCarded
       classes={{
@@ -242,29 +245,25 @@ function Products() {
       }
       content={
         <div className="w-full p-24">
-          {tableItems.length == 0 && lineCode_groupId == 0 ? (
-            <LandingPage />
-          ) : (
-            ""
-          )}
+          {tableItems.length == 0 && rangeCode == 0 ? <LandingPage /> : ""}
           {tableItems.length > 0 ? (
             <ProductsTable
               removeTradeshowItem={removeTradeshowItem}
               addTradeshowItem={addTradeshowItem}
               tableItems={tableItems}
-              lineCode_groupId={lineCode_groupId}
+              rangeCode={rangeCode}
               handleChangeCategory={handleChangeCategory}
               selectedSubCategory={selectedSubCategory}
-              selectedMajorCategory={selectedMajorCategory}
+              selectedRangeCategory={selectedRangeCategory}
             />
           ) : (
-            lineCode_groupId != 0 && (
+            rangeCode != 0 && (
               <SubCategories
                 resetPage={resetPage}
                 update_selected_subCategory={update_selected_subCategory}
-                showTableItems_byLineCode={showTableItems_byLineCode}
-                filterMajorCatoryLineCodes={filterMajorCatoryLineCodes}
-                selectedMajorCategory={selectedMajorCategory}
+                showTableItems_byGroupCode={showTableItems_byGroupCode}
+                filterMajorCatoryGroupCodes={filterMajorCatoryGroupCodes}
+                selectedRangeCategory={selectedRangeCategory}
               />
             )
           )}
@@ -274,7 +273,7 @@ function Products() {
       leftSidebarContent={
         <LeftSideNav
           handleChangeCategory={handleChangeCategory}
-          majorCategories={majorCategories}
+          lineCode_mapping={lineCode_mapping}
         />
       }
       ref={pageLayout}
