@@ -184,7 +184,7 @@ function AccountInformationTab(props) {
           <div className="w-full">{accountBalanceTable}</div>
         </Paper>
       </motion.div>
-      <motion.div variants={item} className="flex w-full sm:w-1/3 p-12">
+      {/* <motion.div variants={item} className="flex w-full sm:w-1/3 p-12">
         <Paper className="w-full rounded-20 shadow">
           <div className="w-full">{programIncentiveTable}</div>
         </Paper>
@@ -193,7 +193,7 @@ function AccountInformationTab(props) {
         <Paper className="w-full rounded-20 shadow">
           <CustomerDiscounts />
         </Paper>
-      </motion.div>
+      </motion.div> */}
     </motion.div>
   );
 }

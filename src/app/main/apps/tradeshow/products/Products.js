@@ -5,14 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import withReducer from "app/store/withReducer";
 import reducer from "../store";
 
-import {
-  Hidden,
-  Icon,
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-} from "@material-ui/core";
+import { Hidden, Icon, IconButton } from "@material-ui/core";
 import ProductsHeader from "./ProductsHeader";
 import ProductsTable from "./ProductTable";
 import SubCategories from "./SubCategories";
@@ -30,7 +23,8 @@ import {
   selectTradeshowItems,
   getTradeshowItems,
 } from "../store/tradeshowItemsSlice";
-import { ContactSupportOutlined } from "@material-ui/icons";
+import SideNav from "./LeftSideNav";
+import LeftSideNav from "./LeftSideNav";
 
 const useStyles = makeStyles({
   layoutRoot: {},
@@ -154,10 +148,52 @@ function Products() {
   function addTradeshowItem(sellPrice, itemId) {
     increaseCartSubtotal(sellPrice);
     setCartItemCount((prevCount) => prevCount + 1);
+    increaseRowQty(itemId);
+  }
+
+  function increaseRowQty(rowId) {
+    const newItemList = tableItems.map((item) => {
+      if (item.id === rowId) {
+        const updatedItem = {
+          ...item,
+          isComplete: !item.isComplete,
+        };
+        if (updatedItem.cartQty == "") {
+          updatedItem.cartQty = 1;
+        } else {
+          updatedItem.cartQty += 1;
+        }
+        return updatedItem;
+      }
+
+      return item;
+    });
+
+    setTableItems(newItemList);
   }
 
   function removeTradeshowItem(sellPrice, itemId) {
     decreaseCartSubtotal(sellPrice);
+    decreaseRowQty(itemId);
+  }
+
+  function decreaseRowQty(rowId) {
+    const newItemList = tableItems.map((item) => {
+      if (item.id === rowId) {
+        const updatedItem = {
+          ...item,
+          isComplete: !item.isComplete,
+        };
+        if (updatedItem.cartQty > 0) {
+          updatedItem.cartQty -= 1;
+        }
+        return updatedItem;
+      }
+
+      return item;
+    });
+
+    setTableItems(newItemList);
   }
 
   function increaseCartSubtotal(sellPrice) {
@@ -175,6 +211,8 @@ function Products() {
       setCartItemCount((prevCount) => prevCount - 1);
     }
   }
+
+  console.log(filterMajorCatoryLineCodes);
 
   return (
     <FusePageCarded
@@ -234,24 +272,10 @@ function Products() {
       }
       leftSidebarHeader={<div className="p-24"></div>}
       leftSidebarContent={
-        <div className="p-24">
-          <h4>Categories</h4>
-          <br />
-
-          {majorCategories.map((row) => (
-            <List
-              key={row.id}
-              dense
-              onClick={() =>
-                handleChangeCategory(row.id, row.groupDesc_tradeshow)
-              }
-            >
-              <ListItem button>
-                <ListItemText primary={row.groupDesc_tradeshow} />
-              </ListItem>
-            </List>
-          ))}
-        </div>
+        <LeftSideNav
+          handleChangeCategory={handleChangeCategory}
+          majorCategories={majorCategories}
+        />
       }
       ref={pageLayout}
     />

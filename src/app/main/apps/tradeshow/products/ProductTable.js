@@ -36,58 +36,16 @@ function ProductTable(props) {
   }
 
   function addTradeshowItem(sellPrice, itemId) {
-    props.addTradeshowItem(sellPrice);
-    increaseRowQty(itemId);
+    props.addTradeshowItem(sellPrice, itemId);
   }
   function removeTradeshowItem(sellPrice, itemId) {
     props.tableItems.map((item) => {
       if (item.id == itemId) {
         if (item.cartQty > 0) {
-          props.removeTradeshowItem(sellPrice);
-          decreaseRowQty(itemId);
+          props.removeTradeshowItem(sellPrice, itemId);
         }
       }
     });
-  }
-
-  function increaseRowQty(rowId) {
-    const newItemList = props.tableItems.map((item) => {
-      if (item.id === rowId) {
-        const updatedItem = {
-          ...item,
-          isComplete: !item.isComplete,
-        };
-        if (updatedItem.cartQty == "") {
-          updatedItem.cartQty = 1;
-        } else {
-          updatedItem.cartQty += 1;
-        }
-        return updatedItem;
-      }
-
-      return item;
-    });
-
-    setItemList(newItemList);
-  }
-
-  function decreaseRowQty(rowId) {
-    const newItemList = props.tableItems.map((item) => {
-      if (item.id === rowId) {
-        const updatedItem = {
-          ...item,
-          isComplete: !item.isComplete,
-        };
-        if (updatedItem.cartQty > 0) {
-          updatedItem.cartQty -= 1;
-        }
-        return updatedItem;
-      }
-
-      return item;
-    });
-
-    setItemList(newItemList);
   }
 
   const tableItems = (
