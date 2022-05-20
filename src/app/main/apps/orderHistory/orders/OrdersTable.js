@@ -103,11 +103,15 @@ function OrdersTable(props) {
                   <TableCell>{row.poNumber}</TableCell>
                   <TableCell>{row.branchId}</TableCell>
                   {row.totalAmount > 0 ? (
-                    <TableCell style={{ color: "green" }} align="right">
+                    <TableCell className="font-semibold " align="right">
                       {formatter.format(row.totalAmount)}
                     </TableCell>
                   ) : (
-                    <TableCell style={{ color: "red" }} align="right">
+                    <TableCell
+                      className="font-semibold "
+                      style={{ color: "red" }}
+                      align="right"
+                    >
                       {formatter.format(row.totalAmount)}
                     </TableCell>
                   )}

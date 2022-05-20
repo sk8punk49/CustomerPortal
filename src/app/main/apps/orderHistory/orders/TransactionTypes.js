@@ -25,7 +25,7 @@ function TransactionTypes(props) {
     return (
       <div
         className={clsx(
-          "inline text-11 font-semibold py-4 px-12 rounded-full truncate bg-green text-white"
+          "inline text-11 font-semibold py-4 px-12 rounded-full truncate bg-grey text-white"
         )}
       >
         INVOICE
