@@ -53,7 +53,9 @@ function Widget10(props) {
                         <TableCell key={cell.id} component="th" scope="row">
                           <Link
                             style={{ color: "#008fc5" }}
-                            to="/apps/e-commerce/orders/1"
+                            to={
+                              "/apps/orderHistory/orders/" + row.invoice_number
+                            }
                           >
                             {cell.value}
                           </Link>

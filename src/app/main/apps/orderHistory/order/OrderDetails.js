@@ -3,7 +3,14 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { Typography } from "@material-ui/core";
+import {
+  Table,
+  TableRow,
+  TableCell,
+  TableHead,
+  TableBody,
+  Typography,
+} from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 const Item = styled(Paper)(({ theme }) => ({
@@ -99,6 +106,133 @@ function OrderDetails(props) {
               <Typography color="textSecondary">Date:</Typography>
             </div>
           </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <div className="mt-48">
+            <Table style={{ width: "100%" }}>
+              <TableHead
+                style={{
+                  backgroundColor: "#777",
+                }}
+              >
+                <TableRow>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    Account #
+                  </TableCell>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    PST #
+                  </TableCell>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    Order #
+                  </TableCell>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    Clerk
+                  </TableCell>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    Shipping Method
+                  </TableCell>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    Delivery Date
+                  </TableCell>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    Phone
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody className="font-semibold">
+                <TableRow>
+                  <TableCell>1</TableCell>
+                  <TableCell>2</TableCell>
+                  <TableCell>3</TableCell>
+                  <TableCell>4</TableCell>
+                  <TableCell>5</TableCell>
+                  <TableCell>6</TableCell>
+                  <TableCell>7</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+        </Grid>
+        <Grid item xs={12}>
+          <div className="mt-96">
+            <Table dense style={{ width: "100%" }}>
+              <TableHead
+                style={{
+                  backgroundColor: "#777",
+                }}
+              >
+                <TableRow>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    Qty
+                  </TableCell>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    Item #
+                  </TableCell>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    Description
+                  </TableCell>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    List Price
+                  </TableCell>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    Unit Price
+                  </TableCell>
+                  <TableCell
+                    className="font-semibold"
+                    style={{ color: "white" }}
+                  >
+                    Extended
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody className="font-semibold">
+                <TableRow>
+                  <TableCell>1</TableCell>
+                  <TableCell>2</TableCell>
+                  <TableCell>3</TableCell>
+                  <TableCell>4</TableCell>
+                  <TableCell>5</TableCell>
+                  <TableCell>6</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
         </Grid>
       </Box>
     </motion.div>
