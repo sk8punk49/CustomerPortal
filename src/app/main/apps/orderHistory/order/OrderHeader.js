@@ -24,7 +24,7 @@ function OrderHeader(props) {
             className="flex items-center sm:mb-12"
             component={Link}
             role="button"
-            to="/apps/premiums/products"
+            to="/apps/orderHistory/"
             color="inherit"
           >
             <Icon className="text-20">
