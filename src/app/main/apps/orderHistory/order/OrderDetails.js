@@ -43,7 +43,7 @@ function OrderDetails(props) {
   function getLineItems() {
     const details = [];
     orderDetails.map((item) => {
-      if (item.invoiceNumber == props.invoiceNumber) {
+      if (item.invoiceNumber.includes(props.invoiceNumber)) {
         const updatedItem = {
           ...item,
         };
@@ -140,7 +140,7 @@ function OrderDetails(props) {
               >
                 Invoice# {props.invoiceNumber}
               </Typography>
-              <Typography color="textSecondary">Date:</Typography>
+              <Typography color="textSecondary">Date:{lineItems[0].invoiceDate[0]}</Typography>
             </div>
           </Grid>
         </Grid>
@@ -199,13 +199,13 @@ function OrderDetails(props) {
               </TableHead>
               <TableBody className="font-semibold" >
                 <TableRow>
-                  <TableCell style={{ padding: "10px" }}></TableCell>
-                  <TableCell style={{ padding: "10px" }}></TableCell>
-                  <TableCell style={{ padding: "10px" }}></TableCell>
-                  <TableCell style={{ padding: "10px" }}></TableCell>
-                  <TableCell style={{ padding: "10px" }}></TableCell>
-                  <TableCell style={{ padding: "10px" }}></TableCell>
-                  <TableCell style={{ padding: "10px" }}></TableCell>
+                  <TableCell style={{ padding: "10px" }}>{lineItems[0].accountNumber}</TableCell>
+                  <TableCell style={{ padding: "10px" }}>{lineItems[0].pstNumber}</TableCell>
+                  <TableCell style={{ padding: "10px" }}>{lineItems[0].poNumber}</TableCell>
+                  <TableCell style={{ padding: "10px" }}>{lineItems[0].clerkNumber.length > 1 ? lineItems[0].clerkNumber[0] : lineItems[0].clerkNumber}</TableCell>
+                  <TableCell style={{ padding: "10px" }}>DEL</TableCell>
+                  <TableCell style={{ padding: "10px" }}>{lineItems[0].invoiceDate[0]}</TableCell>
+                  <TableCell style={{ padding: "10px" }}>{lineItems[0].phoneNumber}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -239,18 +239,21 @@ function OrderDetails(props) {
                     Description
                   </TableCell>
                   <TableCell
+                    align="right"
                     className="font-semibold"
                     style={{ color: "white", padding: "5px" }}
                   >
                     List Price
                   </TableCell>
                   <TableCell
+                    align="right"
                     className="font-semibold"
                     style={{ color: "white", padding: "5px" }}
                   >
                     Unit Price
                   </TableCell>
                   <TableCell
+                    align="right"
                     className="font-semibold"
                     style={{ color: "white", padding: "5px" }}
                   >
@@ -263,10 +266,10 @@ function OrderDetails(props) {
                   <TableRow key={row.id}>
                     <TableCell style={{ padding: "10px" }}>{row.qtyShipped}</TableCell>
                     <TableCell style={{ padding: "10px" }}>{row.partNumber}</TableCell>
-                    <TableCell style={{ padding: "10px" }}>Description</TableCell>
-                    <TableCell style={{ padding: "10px" }}></TableCell>
-                    <TableCell style={{ padding: "10px" }}></TableCell>
-                    <TableCell style={{ padding: "10px" }}>${row.extensionPrice}</TableCell>
+                    <TableCell style={{ padding: "10px" }}>{row.description} {row.core == 'Y' ? "(CORE)" : ""}</TableCell>
+                    <TableCell align="right" style={{ padding: "10px" }}>${row.list}</TableCell>
+                    <TableCell align="right" style={{ padding: "10px" }}>${row.extensionPrice / row.qtyShipped}</TableCell>
+                    <TableCell align="right" style={{ padding: "10px" }}>${row.extensionPrice}</TableCell>
                   </TableRow>
                 ))}
 
@@ -295,24 +298,24 @@ function OrderDetails(props) {
                   <TableRow>
                     <TableCell style={{ border: "none" }}></TableCell>
                     <TableCell><Typography className="font-semibold">SUBTOTAL</Typography></TableCell>
-                    <TableCell align="right"><Typography>$</Typography></TableCell>
+                    <TableCell align="right"><Typography>${(lineItems[0].totalAmount - lineItems[0].pstAmount - lineItems[0].gstAmount).toFixed(2)}</Typography></TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell style={{ border: "none" }}></TableCell>
                     <TableCell><Typography className="font-semibold">GST</Typography></TableCell>
-                    <TableCell align="right"><Typography>$</Typography></TableCell>
+                    <TableCell align="right"><Typography>${lineItems[0].gstAmount}</Typography></TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell style={{ border: "none" }}></TableCell>
                     <TableCell><Typography className="font-semibold">PST</Typography></TableCell>
-                    <TableCell align="right"><Typography>$</Typography></TableCell>
+                    <TableCell align="right"><Typography>${lineItems[0].pstAmount}</Typography></TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell style={{ color: "white", backgroundColor: "#777", border: "none" }}></TableCell>
                     <TableCell colSpan={2} align="right" style={{ color: "white", backgroundColor: "#777" }}>
                       <div style={{ backgroundColor: "white", padding: "15px" }}>
-                        <span style={{ fontSize: "18px", color: "black" }}><strong>TOTAL</strong></span>
-                        <span style={{ fontSize: "18px", float: "right", color: "black" }}><strong>$53.87</strong></span>
+                        <span style={{ fontSize: "18px", color: "black", marginRight: "25px" }}><strong>TOTAL</strong></span>
+                        <span style={{ fontSize: "18px", float: "right", color: "black" }}><strong>${lineItems[0].totalAmount}</strong></span>
                       </div>
                     </TableCell>
                   </TableRow>
