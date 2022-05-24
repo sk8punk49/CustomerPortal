@@ -213,7 +213,7 @@ const initialState = {
     photoURL: "assets/images/avatars/Velazquez.jpg",
     companyLogoURL: "assets/images/customerLogos/budgetBrake.png",
     email: "johndoe@budget.com",
-    shortcuts: ["calendar", "mail", "contacts", "todo"],
+    shortcuts: ["home", "tradeshow-products"],
   },
 };
 

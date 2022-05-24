@@ -171,6 +171,8 @@ function ViewCart(props) {
   function removePremiumItem(id) {
 
     var array = cartItems.items;
+    var premiumPrice = array[id].premium_value;
+    console.log(premiumPrice);
     array.splice(id, 1);
     setCartItems({ items: array });
 

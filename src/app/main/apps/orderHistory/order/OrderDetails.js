@@ -292,7 +292,7 @@ function OrderDetails(props) {
                 <img src={"/assets/images/clip-art/150px-American_Express_logo.svg.png"} style={{ width: "60px", height: "50px", filter: "grayscale(100%)", padding: "5px" }} />
               </div>
             </div>
-            <div className="flex flex-grow flex-col" style={{ float: "right" }}>
+            <div className="flex flex-grow flex-col" style={{ marginLeft: "50px", float: "right" }}>
               <Table style={{ width: "100%", float: "right" }}>
                 <TableBody>
                   <TableRow>

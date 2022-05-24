@@ -51,14 +51,9 @@ function Widget10(props) {
                     case "invoice_number": {
                       return (
                         <TableCell key={cell.id} component="th" scope="row">
-                          <Link
-                            style={{ color: "#008fc5" }}
-                            to={
-                              "/apps/orderHistory/orders/" + row.invoice_number
-                            }
-                          >
+                          <Typography style={{ color: "#008fc5", cursor: "pointer" }}>
                             {cell.value}
-                          </Link>
+                          </Typography>
                         </TableCell>
                       );
                     }
