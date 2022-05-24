@@ -3,7 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import OrderHeader from "./OrderHeader";
 import FusePageCarded from "@fuse/core/FusePageCarded";
 import OrderDetails from "./OrderDetails";
-
+import withReducer from "app/store/withReducer";
+import reducer from "../store";
 function Order() {
   const routeParams = useParams();
   return (
@@ -20,4 +21,4 @@ function Order() {
   );
 }
 
-export default Order;
+export default withReducer("OrderHistory", reducer)(Order);

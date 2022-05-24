@@ -4,7 +4,7 @@ import OrdersHeader from "./OrdersHeader";
 import OrdersTable from "./OrdersTable";
 
 import withReducer from "app/store/withReducer";
-import reducer from "./store";
+import reducer from "../store";
 
 function Orders() {
   return (
