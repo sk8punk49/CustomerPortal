@@ -268,7 +268,7 @@ function OrderDetails(props) {
                     <TableCell style={{ padding: "10px" }}>{row.partNumber}</TableCell>
                     <TableCell style={{ padding: "10px" }}>{row.description} {row.core == 'Y' ? "(CORE)" : ""}</TableCell>
                     <TableCell align="right" style={{ padding: "10px" }}>${row.list}</TableCell>
-                    <TableCell align="right" style={{ padding: "10px" }}>${row.extensionPrice / row.qtyShipped}</TableCell>
+                    <TableCell align="right" style={{ padding: "10px" }}>${(row.extensionPrice / row.qtyShipped).toFixed(2)}</TableCell>
                     <TableCell align="right" style={{ padding: "10px" }}>${row.extensionPrice}</TableCell>
                   </TableRow>
                 ))}
