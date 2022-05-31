@@ -192,9 +192,6 @@ function Login() {
                 Register
               </Link>
             </div>
-            <Link className="font-normal mt-8" to="/home">
-              Back to Dashboard
-            </Link>
           </div>
         </Card>
 

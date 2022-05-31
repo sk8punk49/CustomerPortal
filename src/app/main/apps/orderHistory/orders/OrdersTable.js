@@ -2,7 +2,7 @@ import React from "react";
 import FuseLoading from "@fuse/core/FuseLoading";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { selectOrders, getOrders } from "./store/orderSlice";
+import { selectOrders, getOrders } from "../store/orderSlice";
 import { withRouter } from "react-router-dom";
 import FuseScrollbars from "@fuse/core/FuseScrollbars";
 import { useHistory } from "react-router-dom";

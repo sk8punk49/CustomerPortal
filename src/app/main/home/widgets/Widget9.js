@@ -21,7 +21,7 @@ function Widget9(props) {
       <div className="flex items-center justify-between p-20 h-64">
         <Typography className="text-16 font-medium">{widget.title}</Typography>
       </div>
-      {["weeklySpent", "totalSpent", "remaining"].map((id) => (
+      {["weeklySpent", "remaining", "totalSpent"].map((id) => (
         <div className="flex flex-wrap items-center w-full p-12" key={id}>
           <div className="flex flex-col w-full sm:w-1/2 p-8">
             <Typography className="text-13 font-semibold" color="textSecondary">

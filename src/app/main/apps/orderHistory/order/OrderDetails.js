@@ -1,4 +1,5 @@
 import * as React from "react";
+import FuseLoading from "@fuse/core/FuseLoading";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -11,8 +12,11 @@ import {
   TableBody,
   Typography,
 } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { selectOrderDetails, getOrderDetails } from "../store/orderDetailsSlice";
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#fff" : "#fff",
   ...theme.typography.body2,
@@ -22,13 +26,46 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function OrderDetails(props) {
   const user = useSelector(({ auth }) => auth.user);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+  const orderDetails = useSelector(selectOrderDetails);
+  useEffect(() => {
+    dispatch(getOrderDetails()).then(() => setLoading(false));
+  }, [dispatch]);
+
+  if (loading) {
+    return <FuseLoading />;
+  }
+
+
+
+
+  function getLineItems() {
+    const details = [];
+    orderDetails.map((item) => {
+      if (item.invoiceNumber.includes(props.invoiceNumber)) {
+        const updatedItem = {
+          ...item,
+        };
+        details.push(updatedItem);
+        return updatedItem;
+      }
+
+      return item;
+    });
+
+    return details;
+  }
+  const lineItems = getLineItems();
+  console.log(lineItems);
+
   return (
     <motion.div
-      className="w-full"
+      className=""
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
     >
-      <Box sx={{ flexGrow: 1 }}>
+      <Box>
         <Grid container spacing={0}>
           <Grid
             style={{
@@ -53,7 +90,7 @@ function OrderDetails(props) {
             </Typography>
           </Grid>
           <Grid item xs={4} container>
-            <div className="mt-12 p-24">
+            <div className="p-24">
               <Typography
                 className="text-13 font-semibold"
                 color="textSecondary"
@@ -74,7 +111,7 @@ function OrderDetails(props) {
             </div>
           </Grid>
           <Grid item xs={4}>
-            <div className="mt-12 p-24">
+            <div className="p-24">
               <Typography
                 className="text-13 font-semibold"
                 color="textSecondary"
@@ -103,7 +140,7 @@ function OrderDetails(props) {
               >
                 Invoice# {props.invoiceNumber}
               </Typography>
-              <Typography color="textSecondary">Date:</Typography>
+              <Typography color="textSecondary">Date:{lineItems[0].invoiceDate[0]}</Typography>
             </div>
           </Grid>
         </Grid>
@@ -118,57 +155,57 @@ function OrderDetails(props) {
                 <TableRow>
                   <TableCell
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     Account #
                   </TableCell>
                   <TableCell
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     PST #
                   </TableCell>
                   <TableCell
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     Order #
                   </TableCell>
                   <TableCell
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     Clerk
                   </TableCell>
                   <TableCell
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     Shipping Method
                   </TableCell>
                   <TableCell
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     Delivery Date
                   </TableCell>
                   <TableCell
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     Phone
                   </TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody className="font-semibold">
+              <TableBody className="font-semibold" >
                 <TableRow>
-                  <TableCell>1</TableCell>
-                  <TableCell>2</TableCell>
-                  <TableCell>3</TableCell>
-                  <TableCell>4</TableCell>
-                  <TableCell>5</TableCell>
-                  <TableCell>6</TableCell>
-                  <TableCell>7</TableCell>
+                  <TableCell style={{ padding: "10px" }}>{lineItems[0].accountNumber}</TableCell>
+                  <TableCell style={{ padding: "10px" }}>{lineItems[0].pstNumber}</TableCell>
+                  <TableCell style={{ padding: "10px" }}>{lineItems[0].poNumber}</TableCell>
+                  <TableCell style={{ padding: "10px" }}>{lineItems[0].clerkNumber.length > 1 ? lineItems[0].clerkNumber[0] : lineItems[0].clerkNumber}</TableCell>
+                  <TableCell style={{ padding: "10px" }}>DEL</TableCell>
+                  <TableCell style={{ padding: "10px" }}>{lineItems[0].invoiceDate[0]}</TableCell>
+                  <TableCell style={{ padding: "10px" }}>{lineItems[0].phoneNumber}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -176,7 +213,7 @@ function OrderDetails(props) {
         </Grid>
         <Grid item xs={12}>
           <div className="mt-96">
-            <Table dense style={{ width: "100%" }}>
+            <Table style={{ width: "100%" }}>
               <TableHead
                 style={{
                   backgroundColor: "#777",
@@ -185,55 +222,109 @@ function OrderDetails(props) {
                 <TableRow>
                   <TableCell
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     Qty
                   </TableCell>
                   <TableCell
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     Item #
                   </TableCell>
                   <TableCell
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     Description
                   </TableCell>
                   <TableCell
+                    align="right"
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     List Price
                   </TableCell>
                   <TableCell
+                    align="right"
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     Unit Price
                   </TableCell>
                   <TableCell
+                    align="right"
                     className="font-semibold"
-                    style={{ color: "white" }}
+                    style={{ color: "white", padding: "5px" }}
                   >
                     Extended
                   </TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody className="font-semibold">
-                <TableRow>
-                  <TableCell>1</TableCell>
-                  <TableCell>2</TableCell>
-                  <TableCell>3</TableCell>
-                  <TableCell>4</TableCell>
-                  <TableCell>5</TableCell>
-                  <TableCell>6</TableCell>
-                </TableRow>
+              <TableBody className="font-semibold" >
+                {lineItems.map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell style={{ padding: "10px" }}>{row.qtyShipped}</TableCell>
+                    <TableCell style={{ padding: "10px" }}>{row.partNumber}</TableCell>
+                    <TableCell style={{ padding: "10px" }}>{row.description} {row.core == 'Y' ? "(CORE)" : ""}</TableCell>
+                    <TableCell align="right" style={{ padding: "10px" }}>${row.list}</TableCell>
+                    <TableCell align="right" style={{ padding: "10px" }}>${row.extensionPrice / row.qtyShipped}</TableCell>
+                    <TableCell align="right" style={{ padding: "10px" }}>${row.extensionPrice}</TableCell>
+                  </TableRow>
+                ))}
+
               </TableBody>
             </Table>
           </div>
         </Grid>
+        <div style={{ marginTop: "225px" }}><hr style={{ height: "2px", border: "none", color: "#777", backgroundColor: "#777", marginBottom: "5px" }}></hr>
+          <div className="flex flex-row pl-12 pt-12">
+            <div className="flex flex-col">
+              <span style={{ fontSize: "18px" }}><strong>Lordco Parts Ltd</strong></span>
+              <span style={{ fontSize: "14px" }}>32885 London Avenue</span>
+              <span style={{ fontSize: "14px" }}>Mission, BC V2V 6M7</span>
+              <span style={{ fontSize: "14px" }}>(604) 826-7121</span>
+              <div style={{ marginTop: "50px", paddingBottom: "15px" }} className="flex flex-row">
+                <img src={"/assets/images/clip-art/visa.gif"} style={{ width: "80px", height: "50px", filter: "grayscale(100%)", padding: "5px" }} />
+                <img src={"/assets/images/clip-art/mastercard_vrt_pos_92px_2x.png"} style={{ width: "80px", height: "60px", filter: "grayscale(100%)", padding: "5px" }} />
+                <img src={"/assets/images/clip-art/interac.png"} style={{ width: "60px", height: "50px", filter: "grayscale(100%)", padding: "5px" }} />
+                <img src={"/assets/images/clip-art/discover.png"} style={{ width: "70px", height: "50px", filter: "grayscale(100%)", padding: "5px" }} />
+                <img src={"/assets/images/clip-art/150px-American_Express_logo.svg.png"} style={{ width: "60px", height: "50px", filter: "grayscale(100%)", padding: "5px" }} />
+              </div>
+            </div>
+            <div className="flex flex-grow flex-col" style={{ marginLeft: "50px", float: "right" }}>
+              <Table style={{ width: "100%", float: "right" }}>
+                <TableBody>
+                  <TableRow>
+                    <TableCell style={{ border: "none" }}></TableCell>
+                    <TableCell><Typography className="font-semibold">SUBTOTAL</Typography></TableCell>
+                    <TableCell align="right"><Typography>${(lineItems[0].totalAmount - lineItems[0].pstAmount - lineItems[0].gstAmount).toFixed(2)}</Typography></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell style={{ border: "none" }}></TableCell>
+                    <TableCell><Typography className="font-semibold">GST</Typography></TableCell>
+                    <TableCell align="right"><Typography>${lineItems[0].gstAmount}</Typography></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell style={{ border: "none" }}></TableCell>
+                    <TableCell><Typography className="font-semibold">PST</Typography></TableCell>
+                    <TableCell align="right"><Typography>${lineItems[0].pstAmount}</Typography></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell style={{ color: "white", backgroundColor: "#777", border: "none" }}></TableCell>
+                    <TableCell colSpan={2} align="right" style={{ color: "white", backgroundColor: "#777" }}>
+                      <div style={{ backgroundColor: "white", padding: "15px" }}>
+                        <span style={{ fontSize: "18px", color: "black", marginRight: "25px" }}><strong>TOTAL</strong></span>
+                        <span style={{ fontSize: "18px", float: "right", color: "black" }}><strong>${lineItems[0].totalAmount}</strong></span>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </div>
+          </div>
+
+        </div>
       </Box>
     </motion.div>
   );

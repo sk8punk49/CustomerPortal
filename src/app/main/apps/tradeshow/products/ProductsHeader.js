@@ -63,6 +63,8 @@ function ProductsHeader(props) {
         animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
       >
         <Button
+          component={Link}
+          to="/apps/tradeshow/viewCart"
           className="whitespace-nowrap"
           variant="contained"
           color="secondary"

@@ -20,7 +20,7 @@ function FooterLayout2(props) {
       >
         <Toolbar className="container min-h-48 md:min-h-64 px-8 sm:px-12 py-0 flex items-center overflow-x-auto">
           <Typography>
-            &copy; Lordco Customer Portal - Created by Ryan Hepple
+            Lordco Customer Portal  &copy; - Created by Ryan Hepple
           </Typography>
         </Toolbar>
       </AppBar>
