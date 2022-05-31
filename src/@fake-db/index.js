@@ -3,6 +3,7 @@ import "./db/home-db";
 import "./db/premiums-db";
 import "./db/tradeshow-db";
 import "./db/orderHistory-db";
+import "./db/auth-db";
 
 import history from "@history";
 import mock from "./mock";
