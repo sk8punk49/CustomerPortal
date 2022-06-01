@@ -28,7 +28,7 @@ function HomeDashboardTab() {
       initial="hidden"
       animate="show"
     >
-      <motion.div variants={item} className="widget sm:w-1/2 p-12">
+      <motion.div variants={item} className="widget flex w-full sm:w-1/2 p-12">
         <Widget8 widget={widgets.widget8} />
       </motion.div>
       <motion.div variants={item} className="widget flex w-full sm:w-1/2 p-12">
