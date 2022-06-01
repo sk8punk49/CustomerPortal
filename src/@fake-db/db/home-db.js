@@ -2446,11 +2446,11 @@ const homeDB = {
           legend: {
             position: "bottom",
           },
-          colors: ["#008FC5", "#00729e", "#005676", "#00394f", "#002b3b"],
+
           theme: {
             monochrome: {
-              enabled: false,
-              shadeTo: "light",
+              enabled: true,
+              shadeTo: "dark",
               shadeIntensity: 0.65,
             },
           },
@@ -2730,13 +2730,18 @@ const homeDB = {
       table: {
         columns: [
           {
-            id: "invoice_date",
-            title: "Invoice Date",
-          },
-          {
             id: "invoice_number",
             title: "Invoice#",
           },
+          {
+            id: "total_amount",
+            title: "Invoice Total",
+          },
+          {
+            id: "invoice_date",
+            title: "Invoice Date",
+          },
+
           {
             id: "invoice_time",
             title: "Time",
@@ -2749,27 +2754,30 @@ const homeDB = {
             id: "branch",
             title: "Branch",
           },
-          {
-            id: "total_amount",
-            title: "Invoice Total",
-          },
         ],
         rows: [
           {
             id: 1,
             cells: [
               {
-                id: "invoice_date",
-                value: "2022-04-30",
-                classes: "font-semibold",
-                icon: "",
-              },
-              {
                 id: "invoice_number",
                 value: "2NV029093",
                 classes: "",
                 icon: "",
               },
+              {
+                id: "total_amount",
+                value: "$94.08",
+                classes: "",
+                icon: "",
+              },
+              {
+                id: "invoice_date",
+                value: "2022-04-30",
+                classes: "font-semibold",
+                icon: "",
+              },
+
               {
                 id: "invoice_time",
                 value: "11:33:22",
@@ -2789,29 +2797,30 @@ const homeDB = {
                 classes: "",
                 icon: "",
               },
-              {
-                id: "total_amount",
-                value: "$94.08",
-                classes: "",
-                icon: "",
-              },
             ],
           },
           {
             id: 2,
             cells: [
               {
-                id: "invoice_date",
-                value: "2022-04-26",
-                classes: "font-semibold",
-                icon: "",
-              },
-              {
                 id: "invoice_number",
                 value: "15NV005944",
                 classes: "",
                 icon: "",
               },
+              {
+                id: "total_amount",
+                value: "$7.06",
+                classes: "",
+                icon: "",
+              },
+              {
+                id: "invoice_date",
+                value: "2022-04-26",
+                classes: "font-semibold",
+                icon: "",
+              },
+
               {
                 id: "invoice_time",
                 value: "17:59:22",
@@ -2831,29 +2840,30 @@ const homeDB = {
                 classes: "",
                 icon: "",
               },
-              {
-                id: "total_amount",
-                value: "$7.06",
-                classes: "",
-                icon: "",
-              },
             ],
           },
           {
             id: 3,
             cells: [
               {
-                id: "invoice_date",
-                value: "2022-04-23",
-                classes: "font-semibold",
-                icon: "",
-              },
-              {
                 id: "invoice_number",
                 value: "2NV027837",
                 classes: "",
                 icon: "",
               },
+              {
+                id: "total_amount",
+                value: "$77.20",
+                classes: "",
+                icon: "",
+              },
+              {
+                id: "invoice_date",
+                value: "2022-04-23",
+                classes: "font-semibold",
+                icon: "",
+              },
+
               {
                 id: "invoice_time",
                 value: "12:16:02",
@@ -2873,29 +2883,30 @@ const homeDB = {
                 classes: "",
                 icon: "",
               },
-              {
-                id: "total_amount",
-                value: "$77.20",
-                classes: "",
-                icon: "",
-              },
             ],
           },
           {
             id: 4,
             cells: [
               {
-                id: "invoice_date",
-                value: "2022-04-10",
-                classes: "font-semibold",
-                icon: "",
-              },
-              {
                 id: "invoice_number",
                 value: "2CR002699",
                 classes: "",
                 icon: "",
               },
+              {
+                id: "total_amount",
+                value: "-$53.88",
+                classes: "",
+                icon: "",
+              },
+              {
+                id: "invoice_date",
+                value: "2022-04-10",
+                classes: "font-semibold",
+                icon: "",
+              },
+
               {
                 id: "invoice_time",
                 value: "09:14:44",
@@ -2915,29 +2926,30 @@ const homeDB = {
                 classes: "",
                 icon: "",
               },
-              {
-                id: "total_amount",
-                value: "-$53.88",
-                classes: "",
-                icon: "",
-              },
             ],
           },
           {
             id: 5,
             cells: [
               {
-                id: "invoice_date",
-                value: "2022-04-09",
-                classes: "font-semibold",
-                icon: "",
-              },
-              {
                 id: "invoice_number",
                 value: "2NV025543",
                 classes: "",
                 icon: "",
               },
+              {
+                id: "total_amount",
+                value: "$53.88",
+                classes: "",
+                icon: "",
+              },
+              {
+                id: "invoice_date",
+                value: "2022-04-09",
+                classes: "font-semibold",
+                icon: "",
+              },
+
               {
                 id: "invoice_time",
                 value: "15:55:15",
@@ -2954,12 +2966,6 @@ const homeDB = {
               {
                 id: "branch",
                 value: "#2 - MISSION",
-                classes: "",
-                icon: "",
-              },
-              {
-                id: "total_amount",
-                value: "$53.88",
                 classes: "",
                 icon: "",
               },

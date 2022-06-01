@@ -1,3 +1,4 @@
+import { authRoles } from "app/auth";
 import Home from "./Home";
 
 const HomeConfig = {
@@ -6,6 +7,7 @@ const HomeConfig = {
       config: {},
     },
   },
+  auth: authRoles.user,
   routes: [
     {
       path: "/home",

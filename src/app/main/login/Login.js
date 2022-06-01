@@ -15,31 +15,36 @@ import * as yup from "yup";
 import Button from "@mui/material/Button";
 import Icon from "@mui/material/Icon";
 import IconButton from "@material-ui/core/IconButton";
+import { useDispatch } from "react-redux";
+
+import { submitLogin } from "app/auth/store/loginSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: `linear-gradient(to right, ${theme.palette.primary.dark
-      } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
+    background: `linear-gradient(to right, ${
+      theme.palette.primary.dark
+    } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
     color: theme.palette.primary.contrastText,
   },
   leftSection: {},
   rightSection: {
-    background: `linear-gradient(to right, ${theme.palette.primary.dark
-      } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
+    background: `linear-gradient(to right, ${
+      theme.palette.primary.dark
+    } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
     color: theme.palette.primary.contrastText,
   },
 }));
 
 const defaultValues = {
-  email: "testuser@lordco.com",
-  password: "test6969",
+  accountNumber: "988",
+  password: "demo",
 };
 
 const schema = yup.object().shape({
-  email: yup
+  accountNumber: yup
     .string()
-    .email("You must enter a valid email")
-    .required("You must enter a email"),
+    .min(3, "Account is too short - should be at least 3 digits minimum.")
+    .required("You must enter an account number"),
   password: yup
     .string()
     .required("Please enter your password.")
@@ -47,15 +52,11 @@ const schema = yup.object().shape({
 });
 
 function Login() {
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const [selectedTab, setSelectedTab] = useState(0);
 
-  function handleTabChange(event, value) {
-    setSelectedTab(value);
-  }
   function onSubmit(model) {
-    //  dispatch(submitLogin(model));
-    console.log(model);
+    dispatch(submitLogin(model));
   }
   const [showPassword, setShowPassword] = useState(false);
 
@@ -113,16 +114,16 @@ function Login() {
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <Controller
-                  name="email"
+                  name="accountNumber"
                   control={control}
                   render={({ field }) => (
                     <TextField
                       {...field}
                       className="mb-16"
-                      type="text"
-                      error={!!errors.email}
-                      helperText={errors?.email?.message}
-                      label="Email"
+                      type="number"
+                      error={!!errors.accountNumber}
+                      helperText={errors?.accountNumber?.message}
+                      label="Account#"
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
@@ -177,8 +178,6 @@ function Login() {
                   aria-label="LOG IN"
                   disabled={!isValid}
                   value="legacy"
-                  component={Link}
-                  to="/home"
                 >
                   <Typography style={{ color: "white" }}>Login</Typography>
                 </Button>

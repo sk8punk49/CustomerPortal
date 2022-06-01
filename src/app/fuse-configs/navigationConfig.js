@@ -46,7 +46,6 @@ const navigationConfig = [
         id: "premiums",
         title: "Premiums",
         type: "collapse",
-
         url: "/apps/premiums",
         children: [
           {
