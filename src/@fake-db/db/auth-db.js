@@ -6,13 +6,13 @@ import mock from "../mock";
 
 const jwtConfig = {
   secret: "some-secret-code-goes-here",
-  expiresIn: "2 days", // A numeric value is interpreted as a seconds count. If you use a string be sure you provide the time units (days, hours, etc)
+  expiresIn: "1 days", // A numeric value is interpreted as a seconds count. If you use a string be sure you provide the time units (days, hours, etc)
 };
 
 const authDB = {
   users: [
     {
-      uuid: "2XgbuVEXBU5gtSKdbQRP1Zbbby1i1",
+      uuid: "69XgbuVEXBU5gtSKdbQRP1Zbbby1i1",
       from: "custom-db",
       password: "demo",
       role: ["user"], // admin, user or [] guest
@@ -32,7 +32,7 @@ const authDB = {
         photoURL: "assets/images/avatars/Velazquez.jpg",
         companyLogoURL: "assets/images/customerLogos/budgetBrake.png",
         email: "johndoe@budget.com",
-        shortcuts: ["calendar", "mail", "contacts", "todo"],
+        shortcuts: ["home"],
         settings: {
           layout: {
             style: "layout2",
@@ -53,7 +53,7 @@ const authDB = {
                 style: "fixed",
                 position: "below",
               },
-              mode: "fullwidth",
+              mode: "container",
             },
           },
           customScrollbars: true,

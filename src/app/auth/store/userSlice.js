@@ -82,11 +82,11 @@ export const setUserData = (user) => async (dispatch, getState) => {
   /*
         You can redirect the logged-in user to a specific route depending on his role
          */
-  console.log("history.location.state", history.location.state);
+
   history.location.state = {
     redirectUrl: user.redirectUrl, // for example 'apps/academy'
   };
-  console.log("history.location.state", history.location.state);
+
   /*
     Set User Settings
      */
