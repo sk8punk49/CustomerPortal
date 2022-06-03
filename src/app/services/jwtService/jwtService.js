@@ -1,4 +1,5 @@
 import FuseUtils from "@fuse/utils/FuseUtils";
+import { current } from "@reduxjs/toolkit";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 /* eslint-disable camelcase */
@@ -147,6 +148,7 @@ class JwtService extends FuseUtils.EventEmitter {
   };
 
   isAuthTokenValid = (access_token) => {
+    console.log("Checking if Token is Valid");
     if (!access_token) {
       return false;
     }
@@ -154,6 +156,7 @@ class JwtService extends FuseUtils.EventEmitter {
     const currentTime = Date.now() / 1000;
     if (decoded.exp < currentTime) {
       console.warn("access token expired");
+      // Implement Refresh Token Here
       return false;
     }
 

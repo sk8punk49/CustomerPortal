@@ -80,6 +80,8 @@ class Auth0Service {
   };
 
   setSession = (authResult) => {
+
+
     if (authResult && authResult.accessToken && authResult.idToken) {
       // Set the time that the access token will expire at
       const expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());

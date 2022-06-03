@@ -17,21 +17,33 @@ import Icon from "@mui/material/Icon";
 import IconButton from "@material-ui/core/IconButton";
 import { useDispatch } from "react-redux";
 
+
 import { submitLogin } from "app/auth/store/loginSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: `linear-gradient(to right, ${
-      theme.palette.primary.dark
-    } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
+    background: `linear-gradient(to right, ${theme.palette.primary.dark
+      } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
     color: theme.palette.primary.contrastText,
   },
   leftSection: {},
   rightSection: {
-    background: `linear-gradient(to right, ${
-      theme.palette.primary.dark
-    } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
+    background: `linear-gradient(to right, ${theme.palette.primary.dark
+      } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
     color: theme.palette.primary.contrastText,
+  },
+  input: {
+    '& input[type=number]': {
+      '-moz-appearance': 'textfield'
+    },
+    '& input[type=number]::-webkit-outer-spin-button': {
+      '-webkit-appearance': 'none',
+      margin: 0
+    },
+    '& input[type=number]::-webkit-inner-spin-button': {
+      '-webkit-appearance': 'none',
+      margin: 0
+    }
   },
 }));
 
@@ -119,11 +131,12 @@ function Login() {
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      className="mb-16"
+                      className={clsx(
+                        classes.input, "mb-16")}
                       type="number"
                       error={!!errors.accountNumber}
                       helperText={errors?.accountNumber?.message}
-                      label="Account#"
+                      label="Account #"
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">

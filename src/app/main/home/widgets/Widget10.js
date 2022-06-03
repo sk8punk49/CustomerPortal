@@ -9,8 +9,18 @@ import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
 import { memo } from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function Widget10(props) {
+
+  const history = useHistory();
+
+  function handleClick(invoiceNumber) {
+    let path = "/apps/orderHistory/orders/" + invoiceNumber;
+    history.push(path);
+  }
+
+
   return (
     <Paper className="w-full rounded-20 shadow overflow-hidden">
       <div className="flex items-center justify-between p-20 h-64">
@@ -51,7 +61,7 @@ function Widget10(props) {
                     case "invoice_number": {
                       return (
                         <TableCell key={cell.id} component="th" scope="row">
-                          <Typography style={{ color: "#008fc5", cursor: "pointer" }}>
+                          <Typography onClick={(event) => handleClick(cell.value)} style={{ color: "#008fc5", cursor: "pointer" }}>
                             {cell.value}
                           </Typography>
                         </TableCell>

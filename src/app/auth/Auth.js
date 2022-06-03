@@ -38,6 +38,7 @@ class Auth extends Component {
         /**
          * Sign in and retrieve user data from Api
          */
+
         jwtService
           .signInWithToken()
           .then((user) => {

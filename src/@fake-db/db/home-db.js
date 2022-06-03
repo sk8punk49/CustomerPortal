@@ -2761,13 +2761,13 @@ const homeDB = {
             cells: [
               {
                 id: "invoice_number",
-                value: "2NV029093",
+                value: "111NV09456",
                 classes: "",
                 icon: "",
               },
               {
                 id: "total_amount",
-                value: "$94.08",
+                value: "$14.42",
                 classes: "",
                 icon: "",
               },
@@ -2780,20 +2780,20 @@ const homeDB = {
 
               {
                 id: "invoice_time",
-                value: "11:33:22",
+                value: "09:09:29",
                 classes: "",
                 icon: "",
               },
               {
                 id: "po_number",
-                value: "1",
+                value: "SHOP",
                 classes: "",
                 icon: "",
               },
 
               {
                 id: "branch",
-                value: "#2 - MISSION",
+                value: "#111",
                 classes: "",
                 icon: "",
               },
@@ -2804,39 +2804,39 @@ const homeDB = {
             cells: [
               {
                 id: "invoice_number",
-                value: "15NV005944",
+                value: "111NV09462",
                 classes: "",
                 icon: "",
               },
               {
                 id: "total_amount",
-                value: "$7.06",
+                value: "$500.89",
                 classes: "",
                 icon: "",
               },
               {
                 id: "invoice_date",
-                value: "2022-04-26",
+                value: "2022-04-30",
                 classes: "font-semibold",
                 icon: "",
               },
 
               {
                 id: "invoice_time",
-                value: "17:59:22",
+                value: "10:30:13",
                 classes: "",
                 icon: "",
               },
               {
                 id: "po_number",
-                value: "CASH",
+                value: "DARCY",
                 classes: "",
                 icon: "",
               },
 
               {
                 id: "branch",
-                value: "#15 - PIT MEADOWS",
+                value: "#111",
                 classes: "",
                 icon: "",
               },
@@ -2847,39 +2847,39 @@ const homeDB = {
             cells: [
               {
                 id: "invoice_number",
-                value: "2NV027837",
+                value: "111NV09477",
                 classes: "",
                 icon: "",
               },
               {
                 id: "total_amount",
-                value: "$77.20",
+                value: "$5.85",
                 classes: "",
                 icon: "",
               },
               {
                 id: "invoice_date",
-                value: "2022-04-23",
+                value: "2022-04-30",
                 classes: "font-semibold",
                 icon: "",
               },
 
               {
                 id: "invoice_time",
-                value: "12:16:02",
+                value: "13:27:11",
                 classes: "",
                 icon: "",
               },
               {
                 id: "po_number",
-                value: "0",
+                value: "79480",
                 classes: "",
                 icon: "",
               },
 
               {
                 id: "branch",
-                value: "#2 - MISSION",
+                value: "#111",
                 classes: "",
                 icon: "",
               },
@@ -2890,39 +2890,39 @@ const homeDB = {
             cells: [
               {
                 id: "invoice_number",
-                value: "2CR002699",
+                value: "111NV09479",
                 classes: "",
                 icon: "",
               },
               {
                 id: "total_amount",
-                value: "-$53.88",
+                value: "$40.94",
                 classes: "",
                 icon: "",
               },
               {
                 id: "invoice_date",
-                value: "2022-04-10",
+                value: "2022-04-30",
                 classes: "font-semibold",
                 icon: "",
               },
 
               {
                 id: "invoice_time",
-                value: "09:14:44",
+                value: "15:48:14",
                 classes: "",
                 icon: "",
               },
               {
                 id: "po_number",
-                value: "FIREBIRD",
+                value: "80127",
                 classes: "",
                 icon: "",
               },
 
               {
                 id: "branch",
-                value: "#2 - MISSION",
+                value: "#111",
                 classes: "",
                 icon: "",
               },
@@ -2933,39 +2933,39 @@ const homeDB = {
             cells: [
               {
                 id: "invoice_number",
-                value: "2NV025543",
+                value: "24NV021696",
                 classes: "",
                 icon: "",
               },
               {
                 id: "total_amount",
-                value: "$53.88",
+                value: "$132.31",
                 classes: "",
                 icon: "",
               },
               {
                 id: "invoice_date",
-                value: "2022-04-09",
+                value: "2022-04-30",
                 classes: "font-semibold",
                 icon: "",
               },
 
               {
                 id: "invoice_time",
-                value: "15:55:15",
+                value: "12:43:10",
                 classes: "",
                 icon: "",
               },
               {
                 id: "po_number",
-                value: "FIREBIRD",
+                value: "80127",
                 classes: "",
                 icon: "",
               },
 
               {
                 id: "branch",
-                value: "#2 - MISSION",
+                value: "#24",
                 classes: "",
                 icon: "",
               },
