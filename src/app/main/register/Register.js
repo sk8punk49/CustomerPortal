@@ -78,11 +78,9 @@ const defaultValues = {
 function Register() {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [selectedTab, setSelectedTab] = useState(0);
 
   function onSubmit(model) {
     dispatch(submitRegister(model));
-    console.log("FINISH ON SUBMIT");
   }
 
 
