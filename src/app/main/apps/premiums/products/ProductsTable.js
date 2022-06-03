@@ -166,7 +166,46 @@ function PremiumsTable(props) {
                     )}
                   </TableCell>
                   <TableCell align="center">
-                    <input onChange={() => updatePremiumItem(row.premium_value, row.id, this.value)} style={{ textAlign: "center" }} value={row.cartQty == '' ? 0 : row.cartQty} placeholder="0" type='number' name="qty" />
+                    {/* <input onChange={() => updatePremiumItem(row.premium_value, row.id, this.value)} style={{ textAlign: "center" }} value={row.cartQty == '' ? 0 : row.cartQty} placeholder="0" type='number' name="qty" /> */}
+                    <ButtonGroup variant="text" aria-label="text button group">
+                      <Button
+                        onClick={() =>
+                          removePremiumItem(row.premium_value, row.id)
+                        }
+                      >
+                        <Icon
+                          className={classes.grow}
+                          fontSize="large"
+                          color="secondary"
+                        >
+                          indeterminate_check_box
+                        </Icon>
+                      </Button>
+                      <Button disabled={true} style={{ color: "black" }}>
+                        <Typography
+                          className="font-medium"
+                          align="center"
+                          variant="subtitle1"
+                          component="div"
+                        >
+                          {row.cartQty == "" ? 0 : row.cartQty}
+                        </Typography>
+                      </Button>
+
+                      <Button
+                        onClick={() =>
+                          addPremiumItem(row.premium_value, row.id)
+                        }
+                      >
+                        <Icon
+                          className={classes.grow}
+                          fontSize="large"
+                          color="primary"
+                        >
+                          add_box
+                        </Icon>
+                      </Button>
+                    </ButtonGroup>
                   </TableCell>
                 </TableRow>
               ))}
