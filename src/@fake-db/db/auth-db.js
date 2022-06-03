@@ -250,7 +250,7 @@ mock.onGet("/api/auth/access-token").reply((config) => {
 
 mock.onPost("/api/auth/register").reply((request) => {
   const data = JSON.parse(request.data);
-  const { displayName, password, email } = data;
+  const { accountNumber, password, email } = data;
   const isEmailExists = authDB.users.find(
     (_user) => _user.data.email === email
   );
@@ -268,12 +268,23 @@ mock.onPost("/api/auth/register").reply((request) => {
       uuid: FuseUtils.generateGUID(),
       from: "custom-db",
       password,
-      role: "admin",
+      role: ["user"],
+      redirectUrl: "/home",
       data: {
-        displayName,
+        displayName: "Test Register",
+        companyName: "Test Company",
+        accountNumber,
+        address1: "123 Fake St",
+        address2: "",
+        city: "Springfield",
+        province: "BC",
+        postalCode: "V2V6M9",
+        phoneNumber: "(604) 464-2331",
+        primaryBranch: "#6 - Coquitlam",
+        salesPerson: "Darcy Harvey",
         photoURL: "assets/images/avatars/Abbott.jpg",
         email,
-        settings: {},
+        settings: [],
         shortcuts: [],
       },
     };

@@ -18,8 +18,15 @@ import IconButton from "@material-ui/core/IconButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import TextField from "@material-ui/core/TextField";
 
+import { useDispatch } from "react-redux";
+import { submitRegister } from "app/auth/store/registerSlice";
+
+
 const schema = yup.object().shape({
-  displayName: yup.string().required("You must enter display name"),
+  accountNumber: yup
+    .string()
+    .min(3, "Account is too short - should be at least 3 digits minimum.")
+    .required("You must enter an account number"),
   email: yup
     .string()
     .email("You must enter a valid email")
@@ -45,23 +52,39 @@ const useStyles = makeStyles((theme) => ({
       } 0%, ${darken(theme.palette.primary.dark, 0.5)} 100%)`,
     color: theme.palette.primary.contrastText,
   },
+  input: {
+    '& input[type=number]': {
+      '-moz-appearance': 'textfield'
+    },
+    '& input[type=number]::-webkit-outer-spin-button': {
+      '-webkit-appearance': 'none',
+      margin: 0
+    },
+    '& input[type=number]::-webkit-inner-spin-button': {
+      '-webkit-appearance': 'none',
+      margin: 0
+    }
+  },
 }));
 
 const defaultValues = {
-  displayName: "",
-  email: "",
-  password: "",
-  passwordConfirm: "",
+  accountNumber: "",
+  email: "ryanhepple@hotmail.com",
+  password: "Parts2018!",
+  passwordConfirm: "Parts2018!",
 };
 
-function onSubmit(model) {
-  //  dispatch(submitLogin(model));
-  console.log(model);
-}
 
 function Register() {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(0);
+
+  function onSubmit(model) {
+    dispatch(submitRegister(model));
+    console.log("FINISH ON SUBMIT");
+  }
+
 
   function handleTabChange(event, value) {
     setSelectedTab(value);
@@ -121,16 +144,17 @@ function Register() {
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <Controller
-                  name="displayName"
+                  name="accountNumber"
                   control={control}
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      className="mb-16"
-                      type="text"
-                      label="Company name"
-                      error={!!errors.displayName}
-                      helperText={errors?.displayName?.message}
+                      className={clsx(
+                        classes.input, "mb-16")}
+                      type="number"
+                      label="Account Number"
+                      error={!!errors.accountNumber}
+                      helperText={errors?.accountNumber?.message}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">

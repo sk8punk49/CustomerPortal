@@ -125,6 +125,7 @@ const settingsSlice = createSlice({
   initialState,
   reducers: {
     setSettings: (state, action) => {
+      console.log("SET SERTTINGS!!!");
       const current = generateSettings(state.defaults, action.payload);
       const themes =
         current.theme.main !== state.current.theme.main
